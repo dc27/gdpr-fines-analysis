@@ -1,0 +1,60 @@
+import requests
+import json
+import re
+from bs4 import BeautifulSoup
+
+base = 'https://gdpr-info.eu/'
+
+url =  base
+
+def scrape_url(url):
+
+    with open('data/user_agent.json') as json_file:
+        headers = json.load(json_file)['headers']
+
+    response = requests.get(url, headers=headers)
+
+    soup = BeautifulSoup(response.text, features='html.parser')
+    return soup
+
+soup = scrape_url(url)
+
+links = soup.find_all(name='table')
+
+anchors = [table.find_all('a') for table in soup.find_all('table')][0]
+
+# loop through anchors
+
+for anchor in anchors
+    if length(text) > 8 (99) is the biggest article number and 'recitals' has length (8).
+        it's a chapter - add to list of chapters
+    elif length(text) < 4
+        it's an article - nest under most recent chapter
+
+all_articles = {}
+
+for anchor in anchors:
+    if len(anchor.get_text()) > 8:
+        current_chap = anchor.get_text()
+        all_articles[current_chap] = {}
+        all_articles[current_chap]['title'] = anchor.get('data-title')
+        all_articles[current_chap]['link'] = anchor.get('href')
+        all_articles[current_chap]['articles'] = {}
+    elif len(anchor.get_text()) < 4:
+        current_art = anchor.get_text()
+        all_articles[current_chap]['articles'][current_art] = {}
+        all_articles[current_chap]['articles'][current_art]['title'] = anchor.get('data-title')
+        link = anchor.get('href')
+        art_response = requests.get(url=link, headers=headers)
+        art_soup = BeautifulSoup(art_response.text, features='html.parser')
+        try:
+            art_text = art_soup.find('div', {'class': 'entry-content'}).find('ol').get_text()
+        except:
+            art_text = art_soup.find('div', {'class': 'entry-content'}).find('p').get_text()
+        all_articles[current_chap]['articles'][current_art]['link'] = link
+        all_articles[current_chap]['articles'][current_art]['text'] = art_text
+
+all_articles
+
+with open('data/scraped_art_text.json', 'w', encoding='utf-8') as f:
+    json.dump(all_articles, f, ensure_ascii=False, indent=4)
