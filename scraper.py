@@ -14,7 +14,6 @@ def scrape_url(url):
     soup = BeautifulSoup(response.text, features='html.parser')
     return soup
 
-
 def scrape_fines():
 
     base = 'https://www.privacyaffairs.com/'
@@ -111,7 +110,6 @@ def scrape_article_text():
         json.dump(all_articles, f, ensure_ascii=False, indent=4)
 
     pass
-
 
 def main():
     # uncomment to update article text:
