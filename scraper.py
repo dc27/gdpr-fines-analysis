@@ -111,10 +111,29 @@ def scrape_article_text():
 
     pass
 
+def get_gdpr_article_text():
+    """
+    get's article text from tidytuesday github.
+    
+    Downloads tsv file, which tidytuesday created after scraping gdpr website.
+    Saves as csv
+    """
+    # no need to scrape individual articles; it has already been done:
+    # visit: https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-04-21
+
+    url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-04-21/gdpr_text.tsv'
+
+    article_text = pd.read_csv(url, sep='\t')
+
+    article_text.to_csv('data/gdpr_article_text.csv', index=False)
+    
+    pass
+
 def main():
     # uncomment to update article text:
     scrape_fines()
-    # scrape_article_text()
+    get_gdpr_article_text()
+    
 
 if __name__ == '__main__':
     main()
