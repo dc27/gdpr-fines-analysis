@@ -7,9 +7,9 @@ import json
 def scrape_url(url):
 
     with open('data/user_agent.json') as json_file:
-        headers = json.load(json_file)['headers']
+        header = json.load(json_file)
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=header)
 
     soup = BeautifulSoup(response.text, features='html.parser')
     return soup
@@ -26,7 +26,8 @@ def scrape_fines():
     all_scripts = soup.find_all('script')
 
     # script with req info is in position 7 (I don't know why, that's just where it is apparently)
-    info_script = all_scripts[6]
+        
+    info_script = all_scripts[5]
 
     # start of each list is location of [
     # end of each list is location of ]
