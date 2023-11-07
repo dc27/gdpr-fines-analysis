@@ -3,7 +3,7 @@ from pandas.testing import assert_frame_equal
 from scripts.wrangling_funs import filter_for_positives, strip_text_col
 import pytest
 
-
+# happy path
 def test_filter_for_positives()->None:
     df = pd.DataFrame(dict(id = [1, 2, 3, 4, 5], balance = [-99.9, 100.0, 0.0, 0.0, 79.1]))
     df_positive = pd.DataFrame(dict(id = [2, 5], balance = [100.0, 79.1]))
@@ -29,7 +29,7 @@ def test_filter_for_psotives_bad_input()->None:
     with pytest.raises(TypeError):
         filter_for_positives(df, "bools")
 
-
+# happy path
 def test_strip_text_col()->None:
     df = pd.DataFrame(dict(id = [1, 2, 3, 4], bank = ["super bank ", " mega bank", "awesome  ", "super bank"]))
     df_stripped = pd.DataFrame(dict(id = [1, 2, 3, 4], bank = ["super bank", "mega bank", "awesome", "super bank"]))
