@@ -1,0 +1,349 @@
+---
+title: GDPR Fines Data Exploration
+keep-ipynb: false
+jupyter: python3
+---
+## Setup
+
+
+```{python}
+#| tags: []
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# grab functions from script files. we're in a subdirectory so...
+import sys
+sys.path.append(r"../")
+
+from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer
+```
+
+The data for this project is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The scraped data is included in `data/scraped_gdpr_fines.csv`
+
+```{python}
+fines = pd.read_csv("../data/scraped_fines.csv", parse_dates=["date"])
+```
+
+```{python}
+#| tags: []
+fines.describe().transpose()
+```
+
+Before performing analysis a minor amount of cleaning is required for the 'raw' data
+
+1. remove fines with 0 price
+2. remove whitespace from type column
+
+```{python}
+fines_nozero = (
+    fines
+    .pipe(filter_for_positives, "price")
+    .pipe(strip_text_col, "type")
+)
+```
+
+# Questions
+
+## Big Picture
+
+1. How are the fine amounts distributed?
+2. How does the distribution of fine amount change over time?
+
+### How are the fines distributed?
+
+```{python}
+#| tags: []
+fig, ax = plt.subplots(1,2, figsize=(15, 5), sharex=True, layout="constrained")
+
+sns.histplot(
+    fines_nozero, x="price",
+    edgecolor="white", linewidth=.5, facecolor="midnightblue",
+    log_scale=True, binrange=(0, 10),
+    ax=ax[0]
+)
+
+for bar in ax[0].patches:
+    bar.set_alpha(0.75) 
+
+ax[0].set(xlabel= None, ylabel=None)
+ax[0].xaxis.set_major_formatter('{x:,.0f} €')
+
+# jitter points about 1 on y axis.
+ax[1].scatter("price", "y", data=fines_nozero.assign(
+    y=1+np.random.uniform(low=-0.25, high=0.25, size=len(fines_nozero))),
+    c='midnightblue', alpha=0.05, s=10)
+
+box = ax[1].boxplot(
+    data=fines_nozero, x="price", vert=False,
+    widths=0.5,
+    showfliers=False,
+    medianprops={'color':'black', 'linewidth':2}
+)
+
+# smaller caps
+for cap in box['caps']:
+    cap.set_ydata(cap.get_ydata() - [-0.1, 0.1])
+
+ax[1].set_xscale('log')
+ax[1].set(ylabel=None)
+ax[1].set_yticks([])
+ax[1].set_yticklabels([])
+ax[1].xaxis.set_major_formatter('{x:,.0f} €')
+
+# draw the figure to apply constrained_layout (useful only for positioning suptitle later)
+
+fig.supylabel(t="GDPR Violations")
+fig.supxlabel(t="GDPR Fine (Euro)")
+
+fig.canvas.draw()
+
+fig.suptitle(
+    t="GDPR Fine Distributions (Log Scale)", 
+    x=ax[0].get_position().x0,
+    ha='left', fontsize=16,
+)
+
+plt.show()
+```
+
+### How has the distribution of fines changed over time?
+
+```{python}
+#| tags: []
+df = (fines_nozero.assign(
+    year = lambda x: x.date.dt.year
+))
+
+# make data more friendly for matplotlib
+prices_each_year = df.groupby('year')['price'].apply(lambda x: x.values)
+
+# Get the years as labels
+labels = list(prices_each_year.keys())
+labels.sort()
+
+#create a figure with subplots
+fig, ax = plt.subplots(1, 2, figsize=(10, 5),
+                       gridspec_kw={'width_ratios': [1, 7]},
+                       sharey=True, layout='constrained')
+
+# Create a boxplot for the year 1970
+box1 = ax[0].boxplot(prices_each_year[1970], labels=['1970'], widths=0.4, showfliers=False, medianprops={'color':'black', 'linewidth':2})
+ax[0].set_ylabel('Price')
+
+
+# Create a boxplot for the years other than 1970
+years_other_than_1970 = [year for year in labels if year != 1970]
+box2 = ax[1].boxplot([prices_each_year[year] for year in years_other_than_1970],
+              labels=years_other_than_1970, showfliers=False, widths=0.4,
+              medianprops={'color':'black', 'linewidth':2})
+
+# smaller caps
+for box in list((box1, box2)):
+    for cap in box['caps']:
+        cap.set_xdata(cap.get_xdata() - [-0.05, 0.05])
+
+ax[1].set_ylabel(None)
+
+jittered_x = np.random.normal(0 + 1, 0.1, len(prices_each_year[1970]))
+ax[0].scatter(jittered_x, prices_each_year[1970], alpha=0.05, color='midnightblue', s=10)
+
+
+# Overlay the data points for the years other than 1970
+for i, year in enumerate(years_other_than_1970):
+    jittered_x = np.random.normal(i + 1, 0.1, len(prices_each_year[year]))
+    ax[1].scatter(jittered_x, prices_each_year[year], alpha=0.05, color='midnightblue', s=10)
+
+ax[1].set_yscale('log')
+ax[1].yaxis.set_major_formatter('€ {x:,.0f}')
+
+# draw the figure to apply constrained_layout (req for positioning suptitle)
+fig.canvas.draw()
+
+fig.suptitle(
+    t="How has the distribution of fines changed over time?", 
+    ha='left',
+    x=ax[0].get_position().x0,
+    fontsize=16,
+    y=1.1,
+    va='top'
+)
+
+# subtitle
+plt.figtext(ax[0].get_position().x0, 1, "GDPR Fine Distributions Over Time (Log Scale)", va="bottom", ha="left", size=12)
+plt.show()
+```
+
+## Controllers
+
+1. Who pays the most?
+2. Who pays the most often? 
+
+Some data wrangling is required to create a summary view for each controller. Ideally for each separate controller it would be good to construct a table with:
+
+- the controller name
+- the number of times that controller has been fined
+- the sum of the fines that controller has had to pay
+- the mean of the fines that controller has had to pay
+
+This is useful for direct comparison.
+
+The large companies (e.g. Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e. Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc. (Facebook), Meta Platforms Ireland Limited (Facebook), etc.)
+
+
+### Who pays the most?
+
+```{python}
+#| tags: []
+def strfind(series, term):
+    """"
+    time-saver
+    """
+    return series.str.contains(term, case=False)
+
+# Give multi-national corps standard names
+# Facebook/Meta Ireland -> Facebook/Meta
+fines_controller_gb = (
+    fines_nozero
+    .assign(
+        shortname = lambda x: np.select(
+            [strfind(x.controller, "Facebook"), strfind(x.controller, "Meta "), strfind(x.controller, "Amazon"),
+             strfind(x.controller, "Google"), strfind(x.controller, "Microsoft"), strfind(x.controller, "Vodafone"),
+             strfind(x.controller, "WhatsApp"), strfind(x.controller, "Clearview"), strfind(x.controller, "H&M"),
+             strfind(x.controller, "Marriott")],
+            ["Facebook/Meta", "Facebook/Meta", "Amazon",
+             "Google", "Microsoft", "Vodafone",
+             "WhatsApp", "Clearview AI", "H&M",
+             "Marriot"],
+            x.controller
+        )
+    )
+    .assign(shortname = lambda x: x.shortname.str.title().str.strip().replace(""))
+    .groupby('shortname')
+)
+
+controller_counts = fines_controller_gb.size().to_frame(name='counts')
+controller_stats = (
+    controller_counts
+    .join(fines_controller_gb.agg({'price':'sum'}).rename(columns={'price':'total_price'}))
+    .join(fines_controller_gb.agg({'price':'mean'}).rename(columns={'price':'mean_price'}))
+    .reset_index()
+)
+
+controller_stats.sort_values('total_price', ascending=False).head(3)
+```
+
+```{python}
+#| tags: []
+fig, ax = plt.subplots(figsize=(14, 7))
+
+sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(15, columns='total_price'),
+            color='midnightblue', ax=ax, orient='h', alpha=0.8)
+
+ax.set(xlabel="Total Amount Paid in Fines", ylabel=None)
+ax.xaxis.set_major_formatter('{x:,.0f} €')
+ax.set_title(label="Total Amount Paid in Fines Controllers (Top 15)", loc="left", ha="left", size=12)
+fig.suptitle(t="Who Pays the Most?", x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.95)
+
+plt.show()
+```
+
+### Who Pays the Most Often?
+
+```{python}
+#| tags: []
+DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
+
+fig, ax = plt.subplots(figsize=(14, 7))
+
+sns.barplot(y='shortname', x='counts',
+            data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=15, columns='counts'),
+            color='midnightblue', ax=ax, orient='h', alpha=0.8)
+
+ax.set(xlabel="n Times Fined", ylabel=None, xticks=range(0, controller_stats.counts.max(), 10))
+ax.xaxis.set_major_formatter('{x:,.0f}')
+
+# title and subtitle
+ax.set_title(label="Number of Times Each Controller has been Fined (Top 15)", loc="left", ha="left", size=12)
+fig.suptitle(t="Who Pays the Most Often?", x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.95)
+
+plt.show()
+```
+
+## Article References
+
+At present the data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It's possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e. one row per article violation) the data will need to elongated.
+
+```{python}
+fines_long = pivot_fines_longer(fines_nozero)
+```
+
+### Which articles are referenced the most often?
+
+```{python}
+#| tags: []
+# df showing article next to how often it was referenced.
+n_citations = (
+    fines_long
+    .value_counts('article_number')
+    .reset_index(name='count')
+    .sort_values('article_number')
+)
+```
+
+```{python}
+#| tags: []
+MIN_OCCURENCES = 30
+
+fig, ax = plt.subplots(figsize = (14, 5))
+
+sns.barplot(x='article_number', y='count', data=n_citations.query(f'count >= {MIN_OCCURENCES}'), orient='v', color='grey', ax=ax)
+ax.tick_params(axis='y', which='major', labelsize=8)
+ax.set(xlabel='Article Number', ylabel='Number of Associated Violations/Fines')
+
+# title + subtitle
+ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left')
+fig.suptitle('Number of Fines by Article Number', x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.975)
+
+plt.show()
+```
+
+```{python}
+MIN_OCCURENCES = 30
+
+df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
+
+fig, ax = plt.subplots(figsize=(14, 5))
+
+sns.stripplot(
+    x='article_number',
+    y='total_fine_euro',
+    data=df,
+    color='black',
+    jitter=0.15,
+    size=3.5,
+    alpha=0.05,
+    ax=ax,
+    zorder=1
+)
+
+sns.boxplot(
+    x='article_number',
+    y='total_fine_euro',
+    data=df,
+    ax=ax,
+    showfliers=False,
+    boxprops={'facecolor':'none'}
+)
+
+ax.set_yscale("log")
+ax.set_title(label='', loc='left')
+ax.set(xlabel="\nArticle Number", ylabel='Total Fine (€)')
+
+# title + subtitle
+ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left')
+fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.975);
+```
+
+
