@@ -1,0 +1,8 @@
+format:
+  html: 
+    code-fold: true
+    code-summary: View Code
+
+
+jupyter: python3
+keep-ipynb: false

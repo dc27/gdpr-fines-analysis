@@ -1,8 +1,7 @@
 ---
 title: GDPR Fines Data Exploration
-keep-ipynb: false
-jupyter: python3
 ---
+
 ## Setup
 
 
@@ -11,6 +10,7 @@ jupyter: python3
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotx
 import seaborn as sns
 
 # grab functions from script files. we're in a subdirectory so...
@@ -18,6 +18,9 @@ import sys
 sys.path.append(r"../")
 
 from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer
+
+plt.style.context(matplotx.styles.dufte)
+plt.rcParams["figure.figsize"] = (8, 5)
 ```
 
 The data for this project is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The scraped data is included in `data/scraped_gdpr_fines.csv`
@@ -55,44 +58,21 @@ fines_nozero = (
 
 ```{python}
 #| tags: []
-fig, ax = plt.subplots(1,2, figsize=(15, 5), sharex=True, layout="constrained")
+
+fig, ax = plt.subplots()
 
 sns.histplot(
     fines_nozero, x="price",
     edgecolor="white", linewidth=.5, facecolor="midnightblue",
     log_scale=True, binrange=(0, 10),
-    ax=ax[0]
+    ax=ax
 )
 
-for bar in ax[0].patches:
-    bar.set_alpha(0.75) 
+for bar in ax.patches:
+    bar.set_alpha(0.70) 
 
-ax[0].set(xlabel= None, ylabel=None)
-ax[0].xaxis.set_major_formatter('{x:,.0f} €')
-
-# jitter points about 1 on y axis.
-ax[1].scatter("price", "y", data=fines_nozero.assign(
-    y=1+np.random.uniform(low=-0.25, high=0.25, size=len(fines_nozero))),
-    c='midnightblue', alpha=0.05, s=10)
-
-box = ax[1].boxplot(
-    data=fines_nozero, x="price", vert=False,
-    widths=0.5,
-    showfliers=False,
-    medianprops={'color':'black', 'linewidth':2}
-)
-
-# smaller caps
-for cap in box['caps']:
-    cap.set_ydata(cap.get_ydata() - [-0.1, 0.1])
-
-ax[1].set_xscale('log')
-ax[1].set(ylabel=None)
-ax[1].set_yticks([])
-ax[1].set_yticklabels([])
-ax[1].xaxis.set_major_formatter('{x:,.0f} €')
-
-# draw the figure to apply constrained_layout (useful only for positioning suptitle later)
+ax.set(xlabel= None, ylabel=None)
+ax.xaxis.set_major_formatter('{x:,.0f} €')
 
 fig.supylabel(t="GDPR Violations")
 fig.supxlabel(t="GDPR Fine (Euro)")
@@ -101,7 +81,7 @@ fig.canvas.draw()
 
 fig.suptitle(
     t="GDPR Fine Distributions (Log Scale)", 
-    x=ax[0].get_position().x0,
+    x=ax.get_position().x0,
     ha='left', fontsize=16,
 )
 
@@ -124,7 +104,7 @@ labels = list(prices_each_year.keys())
 labels.sort()
 
 #create a figure with subplots
-fig, ax = plt.subplots(1, 2, figsize=(10, 5),
+fig, ax = plt.subplots(1, 2,
                        gridspec_kw={'width_ratios': [1, 7]},
                        sharey=True, layout='constrained')
 
@@ -236,14 +216,17 @@ controller_stats.sort_values('total_price', ascending=False).head(3)
 
 ```{python}
 #| tags: []
-fig, ax = plt.subplots(figsize=(14, 7))
 
-sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(15, columns='total_price'),
+TOP_N = 10
+
+fig, ax = plt.subplots()
+
+sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(TOP_N, columns='total_price'),
             color='midnightblue', ax=ax, orient='h', alpha=0.8)
 
 ax.set(xlabel="Total Amount Paid in Fines", ylabel=None)
 ax.xaxis.set_major_formatter('{x:,.0f} €')
-ax.set_title(label="Total Amount Paid in Fines Controllers (Top 15)", loc="left", ha="left", size=12)
+ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
 fig.suptitle(t="Who Pays the Most?", x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.95)
 
 plt.show()
@@ -255,17 +238,17 @@ plt.show()
 #| tags: []
 DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
 
-fig, ax = plt.subplots(figsize=(14, 7))
+fig, ax = plt.subplots()
 
 sns.barplot(y='shortname', x='counts',
-            data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=15, columns='counts'),
+            data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=TOP_N, columns='counts'),
             color='midnightblue', ax=ax, orient='h', alpha=0.8)
 
 ax.set(xlabel="n Times Fined", ylabel=None, xticks=range(0, controller_stats.counts.max(), 10))
 ax.xaxis.set_major_formatter('{x:,.0f}')
 
 # title and subtitle
-ax.set_title(label="Number of Times Each Controller has been Fined (Top 15)", loc="left", ha="left", size=12)
+ax.set_title(label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=12)
 fig.suptitle(t="Who Pays the Most Often?", x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.95)
 
 plt.show()
@@ -296,7 +279,7 @@ n_citations = (
 #| tags: []
 MIN_OCCURENCES = 30
 
-fig, ax = plt.subplots(figsize = (14, 5))
+fig, ax = plt.subplots()
 
 sns.barplot(x='article_number', y='count', data=n_citations.query(f'count >= {MIN_OCCURENCES}'), orient='v', color='grey', ax=ax)
 ax.tick_params(axis='y', which='major', labelsize=8)
@@ -314,7 +297,7 @@ MIN_OCCURENCES = 30
 
 df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
 
-fig, ax = plt.subplots(figsize=(14, 5))
+fig, ax = plt.subplots()
 
 sns.stripplot(
     x='article_number',
