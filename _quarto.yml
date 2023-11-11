@@ -3,6 +3,6 @@ format:
     code-fold: true
     code-summary: View Code
 
-
+fig-align: right
 jupyter: python3
 keep-ipynb: false

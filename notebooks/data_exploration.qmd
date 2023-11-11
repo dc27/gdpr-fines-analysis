@@ -10,7 +10,6 @@ title: GDPR Fines Data Exploration
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotx
 import seaborn as sns
 
 # grab functions from script files. we're in a subdirectory so...
@@ -19,7 +18,6 @@ sys.path.append(r"../")
 
 from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer
 
-plt.style.context(matplotx.styles.dufte)
 plt.rcParams["figure.figsize"] = (8, 5)
 ```
 
@@ -277,6 +275,9 @@ n_citations = (
 
 ```{python}
 #| tags: []
+#| fig-align: right
+
+
 MIN_OCCURENCES = 30
 
 fig, ax = plt.subplots()
@@ -293,6 +294,8 @@ plt.show()
 ```
 
 ```{python}
+#| fig-align: right
+
 MIN_OCCURENCES = 30
 
 df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
