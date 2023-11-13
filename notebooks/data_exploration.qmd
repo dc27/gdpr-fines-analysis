@@ -56,6 +56,7 @@ fines_nozero = (
 
 ```{python}
 #| tags: []
+#| fig-align: right
 
 def big_currency(x, pos):
     """Lots of big amounts paid in fines. (> 1 billion sometimes)"""
@@ -71,7 +72,7 @@ fig, ax = plt.subplots()
 sns.histplot(
     fines_nozero, x="price",
     edgecolor="white", linewidth=.5, facecolor="midnightblue",
-    log_scale=True, binrange=(0, 10),
+    log_scale=True, binrange=(-1, 9), bins=20,
     ax=ax
 )
 
@@ -101,6 +102,9 @@ plt.show()
 
 ```{python}
 #| tags: []
+#| fig-align: right
+
+
 df = (fines_nozero.assign(
     year = lambda x: x.date.dt.year
 ))
@@ -119,7 +123,7 @@ fig, ax = plt.subplots(1, 2,
 
 # Create a boxplot for the year 1970
 box1 = ax[0].boxplot(prices_each_year[1970], labels=['1970'], widths=0.4, showfliers=False, medianprops={'color':'black', 'linewidth':2})
-ax[0].set_ylabel('Price')
+ax[0].set_ylabel(None)
 
 
 # Create a boxplot for the years other than 1970
@@ -152,6 +156,7 @@ ax[1].yaxis.set_major_formatter(big_currency)
 # draw the figure to apply constrained_layout (req for positioning suptitle)
 fig.canvas.draw()
 
+fig.supylabel("Price [Log Distribution]")
 fig.suptitle(
     t="How has the distribution of fines changed over time?", 
     ha='left',
@@ -227,6 +232,7 @@ controller_stats.sort_values('total_price', ascending=False).head(3)
 
 ```{python}
 #| tags: []
+#| fig-align: right
 
 TOP_N = 10
 
@@ -238,10 +244,6 @@ sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(TOP_N
 ax.set(xlabel="Total Amount Paid in Fines", ylabel=None)
 ax.xaxis.set_major_formatter(big_currency)
 ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
-
-plt.draw()
-ax.set_xticks(ax.get_xticks())
-ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
 
 fig.suptitle(
     t="Who Pays the Most?", ha='left', fontsize=16,
@@ -256,6 +258,8 @@ plt.show()
 
 ```{python}
 #| tags: []
+#| fig-align: right
+
 DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
 
 fig, ax = plt.subplots()
@@ -304,7 +308,7 @@ n_citations = (
 
 ```{python}
 #| tags: []
-
+#| fig-align: right
 
 MIN_OCCURENCES = 30
 
@@ -325,6 +329,8 @@ plt.show()
 ```
 
 ```{python}
+#| fig-align: right
+
 
 MIN_OCCURENCES = 30
 

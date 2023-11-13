@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="78">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The two args are the value and tick position."""</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Lots of big amounts paid in fines. (&gt; 1 billion sometimes)"""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="fl">1e9</span>:</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.1f}</span><span class="st">B €'</span>.<span class="bu">format</span>(x<span class="op">*</span><span class="fl">1e-9</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="fl">1e6</span>:</span>
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    fines_nozero, x<span class="op">=</span><span class="st">"price"</span>,</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">.5</span>, facecolor<span class="op">=</span><span class="st">"midnightblue"</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    log_scale<span class="op">=</span><span class="va">True</span>, binrange<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    log_scale<span class="op">=</span><span class="va">True</span>, binrange<span class="op">=</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">9</span>), bins<span class="op">=</span><span class="dv">20</span>,</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -242,7 +242,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-6-output-1.png" width="611" height="485"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-6-output-1.png" width="611" height="485" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -269,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot for the year 1970</span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>box1 <span class="op">=</span> ax[<span class="dv">0</span>].boxplot(prices_each_year[<span class="dv">1970</span>], labels<span class="op">=</span>[<span class="st">'1970'</span>], widths<span class="op">=</span><span class="fl">0.4</span>, showfliers<span class="op">=</span><span class="va">False</span>, medianprops<span class="op">=</span>{<span class="st">'color'</span>:<span class="st">'black'</span>, <span class="st">'linewidth'</span>:<span class="dv">2</span>})</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'Price'</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="va">None</span>)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot for the years other than 1970</span></span>
@@ -302,21 +306,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co"># draw the figure to apply constrained_layout (req for positioning suptitle)</span></span>
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
 <span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"How has the distribution of fines changed over time?"</span>, </span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>,</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0,</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="fl">1.1</span>,</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    va<span class="op">=</span><span class="st">'top'</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>plt.figtext(ax[<span class="dv">0</span>].get_position().x0, <span class="dv">1</span>, <span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>fig.supylabel(<span class="st">"Price [Log Distribution]"</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"How has the distribution of fines changed over time?"</span>, </span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>,</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="fl">1.1</span>,</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    va<span class="op">=</span><span class="st">'top'</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>plt.figtext(ax[<span class="dv">0</span>].get_position().x0, <span class="dv">1</span>, <span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-7-output-1.png" width="692" height="543"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-7-output-1.png" width="683" height="543" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -378,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>controller_stats.sort_values(<span class="st">'total_price'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="82">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
 
@@ -434,20 +443,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(big_currency)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.draw()</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(ax.get_xticks())</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(ax.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>],</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().get_points()[<span class="dv">1</span>][<span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>],</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().get_points()[<span class="dv">1</span>][<span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="731" height="514"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="731" height="477" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -481,7 +490,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="761" height="477"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="761" height="477" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -530,7 +543,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="601" height="480"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="601" height="480" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell" data-execution_count="13">
@@ -573,7 +590,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.975</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-14-output-1.png" width="647" height="498"></p>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="data_exploration_files/figure-html/cell-14-output-1.png" width="647" height="498" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
