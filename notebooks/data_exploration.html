@@ -101,34 +101,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell" data-tags="[]" data-execution_count="1">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># grab functions from script files. we're in a subdirectory so...</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="vs">r"../"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scripts.wrangling_funs <span class="im">import</span> filter_for_positives, strip_text_col, pivot_fines_longer</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># grab functions from script files. we're in a subdirectory so...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="vs">r"../"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scripts.wrangling_funs <span class="im">import</span> filter_for_positives, strip_text_col, pivot_fines_longer</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> params.plt_params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The data for this project is scraped from: <a href="https://www.privacyaffairs.com/gdpr-fines/">Privacy Affairs: GDPR Fines List</a>. The scraped data is included in <code>data/scraped_gdpr_fines.csv</code></p>
 <div class="cell" data-execution_count="2">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(<span class="st">"../data/scraped_fines.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"date"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="3">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="78">
 <div>
 
 
@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell" data-execution_count="4">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fines_nozero <span class="op">=</span> (</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    fines</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    .pipe(filter_for_positives, <span class="st">"price"</span>)</span>
@@ -203,37 +203,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h3>
 <div class="cell" data-tags="[]" data-execution_count="5">
 <details>
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    fines_nozero, x<span class="op">=</span><span class="st">"price"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">.5</span>, facecolor<span class="op">=</span><span class="st">"midnightblue"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    log_scale<span class="op">=</span><span class="va">True</span>, binrange<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The two args are the value and tick position."""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="fl">1e9</span>:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.1f}</span><span class="st">B €'</span>.<span class="bu">format</span>(x<span class="op">*</span><span class="fl">1e-9</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="fl">1e6</span>:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.0f}</span><span class="st">M €'</span>.<span class="bu">format</span>(x<span class="op">*</span><span class="fl">1e-6</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.0f}</span><span class="st"> €'</span>.<span class="bu">format</span>(x)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar <span class="kw">in</span> ax.patches:</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    bar.set_alpha(<span class="fl">0.70</span>) </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span> <span class="va">None</span>, ylabel<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(<span class="st">'{x:,.0f} €'</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>fig.supylabel(t<span class="op">=</span><span class="st">"GDPR Violations"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(t<span class="op">=</span><span class="st">"GDPR Fine (Euro)"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    fines_nozero, x<span class="op">=</span><span class="st">"price"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">.5</span>, facecolor<span class="op">=</span><span class="st">"midnightblue"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    log_scale<span class="op">=</span><span class="va">True</span>, binrange<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"GDPR Fine Distributions (Log Scale)"</span>, </span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar <span class="kw">in</span> ax.patches:</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    bar.set_alpha(<span class="fl">0.70</span>) </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span> <span class="va">None</span>, ylabel<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(big_currency)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>fig.supylabel(t<span class="op">=</span><span class="st">"GDPR Violations"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(t<span class="op">=</span><span class="st">"GDPR Fine (Euro)"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"GDPR Fine Distributions (Log Scale)"</span>, </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">"left"</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-6-output-1.png" width="695" height="485"></p>
+<p><img src="data_exploration_files/figure-html/cell-6-output-1.png" width="611" height="485"></p>
 </div>
 </div>
 </section>
@@ -241,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="how-has-the-distribution-of-fines-changed-over-time">How has the distribution of fines changed over time?</h3>
 <div class="cell" data-tags="[]" data-execution_count="6">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (fines_nozero.assign(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> <span class="kw">lambda</span> x: x.date.dt.year</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>))</span>
@@ -285,27 +294,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    jittered_x <span class="op">=</span> np.random.normal(i <span class="op">+</span> <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="bu">len</span>(prices_each_year[year]))</span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].scatter(jittered_x, prices_each_year[year], alpha<span class="op">=</span><span class="fl">0.05</span>, color<span class="op">=</span><span class="st">'midnightblue'</span>, s<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_yscale(<span class="st">'log'</span>)</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].yaxis.set_major_formatter(<span class="st">'€ {x:,.0f}'</span>)</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co"># draw the figure to apply constrained_layout (req for positioning suptitle)</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"How has the distribution of fines changed over time?"</span>, </span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>,</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0,</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="fl">1.1</span>,</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    va<span class="op">=</span><span class="st">'top'</span></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle</span></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>plt.figtext(ax[<span class="dv">0</span>].get_position().x0, <span class="dv">1</span>, <span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># delineate the year jump</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].spines.left.set_visible(<span class="va">True</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_yscale(<span class="st">'log'</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].yaxis.set_major_formatter(big_currency)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co"># draw the figure to apply constrained_layout (req for positioning suptitle)</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"How has the distribution of fines changed over time?"</span>, </span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>,</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0,</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="fl">1.1</span>,</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    va<span class="op">=</span><span class="st">'top'</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>plt.figtext(ax[<span class="dv">0</span>].get_position().x0, <span class="dv">1</span>, <span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-7-output-1.png" width="779" height="543"></p>
+<p><img src="data_exploration_files/figure-html/cell-7-output-1.png" width="692" height="543"></p>
 </div>
 </div>
 </section>
@@ -329,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="who-pays-the-most">Who pays the most?</h3>
 <div class="cell" data-tags="[]" data-execution_count="7">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strfind(series, term):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""""</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    time-saver</span></span>
@@ -367,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>controller_stats.sort_values(<span class="st">'total_price'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="59">
+<div class="cell-output cell-output-display" data-execution_count="82">
 <div>
 
 
@@ -411,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell" data-tags="[]" data-execution_count="8">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -420,14 +431,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Total Amount Paid in Fines"</span>, ylabel<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(<span class="st">'{x:,.0f} €'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(big_currency)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>fig.suptitle(t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.draw()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(ax.get_xticks())</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(ax.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>],</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().get_points()[<span class="dv">1</span>][<span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="775" height="463"></p>
+<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="731" height="514"></p>
 </div>
 </div>
 </section>
@@ -435,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="who-pays-the-most-often">Who Pays the Most Often?</h3>
 <div class="cell" data-tags="[]" data-execution_count="9">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Private Individual"</span>, <span class="st">"Unknown"</span>, <span class="st">"Company"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -444,17 +464,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>, xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>))</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(<span class="st">'{x:,.0f}'</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>fig.suptitle(t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>],</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().get_points()[<span class="dv">1</span>][<span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="800" height="463"></p>
+<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="761" height="477"></p>
 </div>
 </div>
 </section>
@@ -464,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>At present the data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It’s possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e.&nbsp;one row per article violation) the data will need to elongated.</p>
 <div class="cell" data-execution_count="10">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -472,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="which-articles-are-referenced-the-most-often">Which articles are referenced the most often?</h3>
 <div class="cell" data-tags="[]" data-execution_count="11">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df showing article next to how often it was referenced.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n_citations <span class="op">=</span> (</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
@@ -484,32 +511,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell" data-tags="[]" data-execution_count="12">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'count'</span>, data<span class="op">=</span>n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>), orient<span class="op">=</span><span class="st">'v'</span>, color<span class="op">=</span><span class="st">'grey'</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'Article Number'</span>, ylabel<span class="op">=</span><span class="st">'Number of Associated Violations/Fines'</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.975</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">'Article Number'</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">'Number of Associated Violations/Fines'</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>,   fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.975</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="663" height="475" class="figure-img"></p>
-</figure>
-</div>
+<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="601" height="480"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="13">
 <details>
-<summary>View Code</summary>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>).merge(fines_long, how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span>)</span>
@@ -539,18 +565,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="st">''</span>, loc<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">'Total Fine (€)'</span>)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.975</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">'Total Fine (€) [Logarithmic Scale]'</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(big_currency)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().get_points()[<span class="dv">0</span>][<span class="dv">0</span>], ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">0.975</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-14-output-1.png" width="666" height="490" class="figure-img"></p>
-</figure>
-</div>
+<p><img src="data_exploration_files/figure-html/cell-14-output-1.png" width="647" height="498"></p>
 </div>
 </div>
 </section>
