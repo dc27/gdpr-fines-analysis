@@ -14,6 +14,8 @@ mpl.rcParams.update(
         "axes.spines.right": False,
         "ytick.left": False,
         "xtick.bottom": False,
-        "figure.figsize": (7.9, 5.4)
+        "figure.facecolor": "white",
+        "figure.figsize": (7.9, 5.4),
+        "figure.autolayout": True
     }
 )

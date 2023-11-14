@@ -56,7 +56,7 @@ fines_nozero = (
 
 ```{python}
 #| tags: []
-#| fig-align: right
+
 
 def big_currency(x, pos):
     """Lots of big amounts paid in fines. (> 1 billion sometimes)"""
@@ -72,7 +72,7 @@ fig, ax = plt.subplots()
 sns.histplot(
     fines_nozero, x="price",
     edgecolor="white", linewidth=.5, facecolor="midnightblue",
-    log_scale=True, binrange=(-1, 9), bins=20,
+    log_scale=True, binrange=(0, 10), bins=20,
     ax=ax
 )
 
@@ -90,9 +90,12 @@ fig.canvas.draw()
 fig.suptitle(
     t="GDPR Fine Distributions (Log Scale)", 
     x=ax.get_position().x0,
+    y=ax.get_position().y1,
     ha="left", fontsize=16,
 )
 
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
@@ -102,9 +105,6 @@ plt.show()
 
 ```{python}
 #| tags: []
-#| fig-align: right
-
-
 df = (fines_nozero.assign(
     year = lambda x: x.date.dt.year
 ))
@@ -119,7 +119,7 @@ labels.sort()
 #create a figure with subplots
 fig, ax = plt.subplots(1, 2,
                        gridspec_kw={'width_ratios': [1, 7]},
-                       sharey=True, layout='constrained')
+                       sharey=True)
 
 # Create a boxplot for the year 1970
 box1 = ax[0].boxplot(prices_each_year[1970], labels=['1970'], widths=0.4, showfliers=False, medianprops={'color':'black', 'linewidth':2})
@@ -160,14 +160,17 @@ fig.supylabel("Price [Log Distribution]")
 fig.suptitle(
     t="How has the distribution of fines changed over time?", 
     ha='left',
-    x=ax[0].get_position().x0,
+    x=ax[0].get_position().x0+0.03,
     fontsize=16,
-    y=1.1,
+    y=ax[0].get_position().y1*1.015,
     va='top'
 )
 
 # subtitle
-plt.figtext(ax[0].get_position().x0, 1, "GDPR Fine Distributions Over Time (Log Scale)", va="bottom", ha="left", size=12)
+plt.figtext(x=ax[0].get_position().x0+0.03, y=ax[0].get_position().y1*0.925, s="GDPR Fine Distributions Over Time (Log Scale)", va="bottom", ha="left", size=12)
+
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
@@ -232,8 +235,6 @@ controller_stats.sort_values('total_price', ascending=False).head(3)
 
 ```{python}
 #| tags: []
-#| fig-align: right
-
 TOP_N = 10
 
 fig, ax = plt.subplots()
@@ -241,16 +242,20 @@ fig, ax = plt.subplots()
 sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(TOP_N, columns='total_price'),
             color='midnightblue', ax=ax, orient='h', alpha=0.8)
 
-ax.set(xlabel="Total Amount Paid in Fines", ylabel=None)
+ax.set(xlabel="\nTotal Amount Paid in Fines", ylabel=None)
 ax.xaxis.set_major_formatter(big_currency)
-ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
 
+
+fig.canvas.draw()
+ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
 fig.suptitle(
     t="Who Pays the Most?", ha='left', fontsize=16,
-    x=ax.get_position().get_points()[0][0],
-    y=ax.get_position().get_points()[1][1] * 1.1
+    x=ax.get_position().x0,
+    y=ax.get_position().y1*0.975
     )
 
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
@@ -258,7 +263,7 @@ plt.show()
 
 ```{python}
 #| tags: []
-#| fig-align: right
+
 
 DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
 
@@ -269,19 +274,23 @@ sns.barplot(y='shortname', x='counts',
             color='midnightblue', ax=ax, orient='h', alpha=0.8)
 
 ax.set(
-    xlabel="n Times Fined", ylabel=None,
+    xlabel="\nn Times Fined", ylabel=None,
     xticks=range(0, controller_stats.counts.max(), 10)
     )
+
+fig.canvas.draw()
 
 # title and subtitle
 ax.set_title(
     label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=12)
 fig.suptitle(
     t="Who Pays the Most Often?", ha='left', fontsize=16,
-    x=ax.get_position().get_points()[0][0],
-    y=ax.get_position().get_points()[1][1] * 1.1
+    x=ax.get_position().x0,
+    y=ax.get_position().y1*0.975
     )
 
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
@@ -308,7 +317,7 @@ n_citations = (
 
 ```{python}
 #| tags: []
-#| fig-align: right
+
 
 MIN_OCCURENCES = 30
 
@@ -317,21 +326,22 @@ fig, ax = plt.subplots()
 sns.barplot(x='article_number', y='count', data=n_citations.query(f'count >= {MIN_OCCURENCES}'), orient='v', color='grey', ax=ax)
 ax.tick_params(axis='y', which='major')
 ax.set(
-    xlabel='Article Number',
-    ylabel='Number of Associated Violations/Fines'
+    xlabel='\nArticle Number',
+    ylabel='Number of Associated Violations/Fines\n'
     )
 
-# title + subtitle
-ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left',   fontsize=12)
-fig.suptitle('Number of Fines by Article Number', x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.975)
+fig.canvas.draw()
 
+# title + subtitle
+ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=12)
+fig.suptitle('Number of Fines by Article Number', x=ax.get_position().x0, ha='left', fontsize=16, y=ax.get_position().y1*0.975)
+
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
 ```{python}
-#| fig-align: right
-
-
 MIN_OCCURENCES = 30
 
 df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
@@ -339,34 +349,31 @@ df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inne
 fig, ax = plt.subplots()
 
 sns.stripplot(
-    x='article_number',
-    y='total_fine_euro',
-    data=df,
-    color='black',
-    jitter=0.15,
-    size=3.5,
-    alpha=0.05,
-    ax=ax,
-    zorder=1
+    x='article_number', y='total_fine_euro', data=df,
+    color='black', jitter=0.15, size=3.5, alpha=0.05,
+    ax=ax, zorder=1
 )
 
 sns.boxplot(
-    x='article_number',
-    y='total_fine_euro',
-    data=df,
+    x='article_number', y='total_fine_euro', data=df,
     ax=ax,
     showfliers=False,
     boxprops={'facecolor':'none'}
 )
 
 ax.set_yscale("log")
-ax.set_title(label='', loc='left')
-ax.set(xlabel="\nArticle Number", ylabel='Total Fine (€) [Logarithmic Scale]')
+ax.set(xlabel="\nArticle Number", ylabel="Total Fine (€) [Logarithmic Scale]\n")
 ax.yaxis.set_major_formatter(big_currency)
+
+fig.canvas.draw()
 
 # title + subtitle
 ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=12)
-fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_position().get_points()[0][0], ha='left', fontsize=16, y=0.975);
+fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_position().x0, ha='left', fontsize=16, y=ax.get_position().ymax*0.975)
+
+ax.grid(visible=True, axis="both")
+
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
+plt.show()
 ```
-
-

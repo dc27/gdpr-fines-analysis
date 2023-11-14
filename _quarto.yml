@@ -1,6 +1,8 @@
 format:
   html: 
     code-fold: true
+    fig-height: 5
+    fig-width: 8
 
 jupyter: python3
 keep-ipynb: false
