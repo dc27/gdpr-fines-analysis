@@ -2,8 +2,17 @@
 title: GDPR Fines Data Exploration
 ---
 
-## Setup
 
+This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR [(General Data Protection Regulation)](https://gdpr-info.eu/), which aims to protect the information of European Union citizens, took affect in May 2018.
+
+## Quick Info
+
+...
+total number of fines:
+highest fine:
+...
+
+## Setup
 
 ```{python}
 #| tags: []
@@ -17,9 +26,15 @@ import seaborn as sns
 import sys
 sys.path.append(r"../")
 
+# helper functions
 from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer
+
+# plot styles
 import params.plt_params
 ```
+
+
+## Data
 
 The data for this project is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The scraped data is included in `data/scraped_gdpr_fines.csv`
 
@@ -27,9 +42,25 @@ The data for this project is scraped from: [Privacy Affairs: GDPR Fines List](ht
 fines = pd.read_csv("../data/scraped_fines.csv", parse_dates=["date"])
 ```
 
+Looking at only the numeric columns
+
 ```{python}
 #| tags: []
-fines.describe().transpose()
+
+with pd.option_context("display.precision", 2):
+    display(
+        fines
+        .drop(columns="id")
+        .describe(include=[object])
+        .transpose()
+        )
+
+    display(
+        fines
+        .drop(columns='id')
+        .describe()
+        .transpose()
+        )
 ```
 
 Before performing analysis a minor amount of cleaning is required for the 'raw' data
@@ -56,8 +87,6 @@ fines_nozero = (
 
 ```{python}
 #| tags: []
-
-
 def big_currency(x, pos):
     """Lots of big amounts paid in fines. (> 1 billion sometimes)"""
     if x >= 1e9:
@@ -66,7 +95,9 @@ def big_currency(x, pos):
         return '{:1.0f}M €'.format(x*1e-6)
     
     return '{:1.0f} €'.format(x)
+```
 
+```{python}
 fig, ax = plt.subplots()
 
 sns.histplot(
@@ -75,7 +106,6 @@ sns.histplot(
     log_scale=True, binrange=(0, 10), bins=20,
     ax=ax
 )
-
 for bar in ax.patches:
     bar.set_alpha(0.70) 
 
@@ -98,7 +128,6 @@ fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```
-
 
 
 ### How has the distribution of fines changed over time?

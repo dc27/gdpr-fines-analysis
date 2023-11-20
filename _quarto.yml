@@ -3,6 +3,10 @@ format:
     code-fold: true
     fig-height: 5
     fig-width: 8
+    toc: true
+    number-sections: true
+    number-depth: 2
+    css: styles.css
 
 jupyter: python3
 keep-ipynb: false
