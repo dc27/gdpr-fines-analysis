@@ -2,15 +2,7 @@
 title: GDPR Fines Data Exploration
 ---
 
-
 This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR [(General Data Protection Regulation)](https://gdpr-info.eu/), which aims to protect the information of European Union citizens, took affect in May 2018.
-
-## Quick Info
-
-...
-total number of fines:
-highest fine:
-...
 
 ## Setup
 
@@ -36,16 +28,21 @@ import params.plt_params
 
 ## Data
 
-The data for this project is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The scraped data is included in `data/scraped_gdpr_fines.csv`
+The data for this report is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The  data is then transformed into a tabular format and writtedn to `data/scraped_gdpr_fines.csv` This can be recreated by running:
+
+```python
+python scripts/scrape_gdpr_fines.py
+```
 
 ```{python}
 fines = pd.read_csv("../data/scraped_fines.csv", parse_dates=["date"])
 ```
 
-Looking at only the numeric columns
+The data consists of `{python} fines.shape[0]` rows of `{python} fines.shape[1]` variables. Each row of data relates to a single occurence of GDPR violation along with it's penalty amount (fine), the local controller, the organisation found in violation, and the articles of GDPR they were found in violation of.
 
 ```{python}
-#| tags: []
+#| label: tbl-data-info-cols
+#| tbl-cap: "GDPR Fines: Informative Columns"
 
 with pd.option_context("display.precision", 2):
     display(
@@ -54,7 +51,13 @@ with pd.option_context("display.precision", 2):
         .describe(include=[object])
         .transpose()
         )
+```
 
+```{python}
+#| label: tbl-data-price-col
+#| tbl-cap: "GDPR Fines: Price Column Distribution"
+
+with pd.option_context("display.precision", 2):
     display(
         fines
         .drop(columns='id')
@@ -63,10 +66,10 @@ with pd.option_context("display.precision", 2):
         )
 ```
 
-Before performing analysis a minor amount of cleaning is required for the 'raw' data
+The minumum value of fines is 0. This seems incorrect (and worth investigating!) but with the assumption that fines should fall in the range $ 0 \gt \textrm{fine amount} \gt \inf $. Before performing analysis a minor amount of cleaning is required for the 'raw' data
 
 1. remove fines with 0 price
-2. remove whitespace from type column
+1. remove whitespace from type column
 
 ```{python}
 fines_nozero = (
@@ -76,17 +79,44 @@ fines_nozero = (
 )
 ```
 
+After cleaning the data there are now `{python} fines_nozero.shape[0]` rows of `{python} fines_nozero.shape[1]` variables.
+
+```{python}
+#| label: tbl-data-price-col2
+#| tbl-cap: "GDPR Fines: Price Column Distribution"
+
+with pd.option_context("display.precision", 2):
+    display(
+        fines_nozero
+        .drop(columns='id')
+        .describe()
+        .transpose()
+        )
+```
+
 # Questions
 
-## Big Picture
+Through visualisation the following questions will be explored. This is with the goal of understanding: The financial penalty (fine amount), poor data controllers, particular articles.
+
+__On the Fine Amount: __
 
 1. How are the fine amounts distributed?
-2. How does the distribution of fine amount change over time?
+1. How does the distribution of fine amount change over time?
+
+__On the Controllers: __
+
+1. Who pays the most?
+1. Who pays the most often? 
+
+__On the Articles: __
+
+1. Which articles are referrenced the most often
+
+## Fine Value
 
 ### How are the fines distributed?
 
 ```{python}
-#| tags: []
 def big_currency(x, pos):
     """Lots of big amounts paid in fines. (> 1 billion sometimes)"""
     if x >= 1e9:
@@ -129,8 +159,17 @@ fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
+By visualising the distribution of fines as a simple histogram it was immediately clear there was a large degree of right-skew. This is typical with financial data. Because of the high right-skew, the decision was made to visualise the data on a logarithmic scale.
+
+@tbl-data-price-col2 shows the five figure summary of the price column. Fine value ranges from `{python} fines_nozero.price.min()` to `{python} fines_nozero.price.max()`.
+
+Most of the fines fall between 1000 and 100000 Euros.
 
 ### How has the distribution of fines changed over time?
+
+Looking at each year's distribution of fines as a boxplot allows for them to be compared. If they boxes move up the y-axis it would give credence that the fine values are increasing over time.
+
+By including the actual data points (each fine occurence) as an overlayed jitters, it's also possible to see if the number of fines is increasing.
 
 ```{python}
 #| tags: []
@@ -151,15 +190,21 @@ fig, ax = plt.subplots(1, 2,
                        sharey=True)
 
 # Create a boxplot for the year 1970
-box1 = ax[0].boxplot(prices_each_year[1970], labels=['1970'], widths=0.4, showfliers=False, medianprops={'color':'black', 'linewidth':2})
+box1 = ax[0].boxplot(
+    prices_each_year[1970],
+    labels=['1970'], widths=0.4, showfliers=False,
+    medianprops={'color':'black', 'linewidth':2}
+    )
 ax[0].set_ylabel(None)
 
 
 # Create a boxplot for the years other than 1970
 years_other_than_1970 = [year for year in labels if year != 1970]
-box2 = ax[1].boxplot([prices_each_year[year] for year in years_other_than_1970],
-              labels=years_other_than_1970, showfliers=False, widths=0.4,
-              medianprops={'color':'black', 'linewidth':2})
+box2 = ax[1].boxplot(
+    [prices_each_year[year] for year in years_other_than_1970],
+    labels=years_other_than_1970, showfliers=False, widths=0.4,
+    medianprops={'color':'black', 'linewidth':2}
+    )
 
 # smaller caps
 for box in list((box1, box2)):
@@ -202,6 +247,18 @@ fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```
+
+
+The plot shows an immediate curiosity: several fines are labelled as being given in 1970. It looks like this was this data's way of encoding `NA` for the date of fine.
+
+The other boxes only vary slightly. They all show Q1 above 1000, Q2 (median around 10000) and Q3 between 10000 and 100000. One notable exception is 2022 which is lower on the y axis.
+
+Looking at the number of data points per year it looks like 2022 had more GDPR fines than any other year.
+
+This report was conducted late in 2023. While this may explain why there are fewer points on the 2023 box, it still looks like there will be fewer fines than in previous years.
+
+It doesn't look as if there is a clear trend in the distribution of fines.
+
 
 ## Controllers
 

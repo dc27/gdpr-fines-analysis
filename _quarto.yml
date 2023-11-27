@@ -10,3 +10,5 @@ format:
 
 jupyter: python3
 keep-ipynb: false
+execute: 
+  enabled: true
