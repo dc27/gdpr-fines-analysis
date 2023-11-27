@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GDPR Fines Data Exploration</title>
+<title>GDPR Fines Regression Analysis - 2&nbsp; GDPR Fines Data Exploration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,59 +57,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="data_exploration_files/libs/clipboard/clipboard.min.js"></script>
-<script src="data_exploration_files/libs/quarto-html/quarto.js"></script>
-<script src="data_exploration_files/libs/quarto-html/popper.min.js"></script>
-<script src="data_exploration_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="data_exploration_files/libs/quarto-html/anchor.min.js"></script>
-<link href="data_exploration_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="data_exploration_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="data_exploration_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="data_exploration_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="data_exploration_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../dev.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/data_exploration.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">GDPR Fines Regression Analysis</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/data_exploration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regression Analysis</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">0.1</span> Setup</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">0.2</span> Data</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">1</span> Questions</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">2.0.1</span> Setup</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">2.0.2</span> Data</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">2.1</span> Questions</a>
   <ul class="collapse">
-  <li><a href="#fine-value" id="toc-fine-value" class="nav-link" data-scroll-target="#fine-value"><span class="header-section-number">1.1</span> Fine Value</a>
-  <ul class="collapse">
-  <li><a href="#how-are-the-fines-distributed" id="toc-how-are-the-fines-distributed" class="nav-link" data-scroll-target="#how-are-the-fines-distributed">How are the fines distributed?</a></li>
-  <li><a href="#how-has-the-distribution-of-fines-changed-over-time" id="toc-how-has-the-distribution-of-fines-changed-over-time" class="nav-link" data-scroll-target="#how-has-the-distribution-of-fines-changed-over-time">How has the distribution of fines changed over time?</a></li>
-  </ul></li>
-  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">1.2</span> Controllers</a>
-  <ul class="collapse">
-  <li><a href="#who-pays-the-most" id="toc-who-pays-the-most" class="nav-link" data-scroll-target="#who-pays-the-most">Who pays the most?</a></li>
-  <li><a href="#who-pays-the-most-often" id="toc-who-pays-the-most-often" class="nav-link" data-scroll-target="#who-pays-the-most-often">Who Pays the Most Often?</a></li>
-  </ul></li>
-  <li><a href="#article-references" id="toc-article-references" class="nav-link" data-scroll-target="#article-references"><span class="header-section-number">1.3</span> Article References</a>
-  <ul class="collapse">
-  <li><a href="#which-articles-are-referenced-the-most-often" id="toc-which-articles-are-referenced-the-most-often" class="nav-link" data-scroll-target="#which-articles-are-referenced-the-most-often">Which articles are referenced the most often?</a></li>
-  </ul></li>
+  <li><a href="#fine-value" id="toc-fine-value" class="nav-link" data-scroll-target="#fine-value"><span class="header-section-number">2.1.1</span> Fine Value</a></li>
+  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">2.1.2</span> Controllers</a></li>
+  <li><a href="#article-references" id="toc-article-references" class="nav-link" data-scroll-target="#article-references"><span class="header-section-number">2.1.3</span> Article References</a></li>
   </ul></li>
   </ul>
 </nav>
-</div>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">GDPR Fines Data Exploration</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></h1>
 </div>
 
 
@@ -127,9 +205,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR <a href="https://gdpr-info.eu/">(General Data Protection Regulation)</a>, which aims to protect the information of European Union citizens, took affect in May 2018.</p>
-<section id="setup" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">0.1</span> Setup</h2>
-<div id="f8790c32" class="cell" data-tags="[]" data-execution_count="1">
+<section id="setup" class="level3" data-number="2.0.1">
+<h3 data-number="2.0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.0.1</span> Setup</h3>
+<div id="7e3adf9f" class="cell" data-tags="[]" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -150,11 +228,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="data" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="data"><span class="header-section-number">0.2</span> Data</h2>
+<section id="data" class="level3" data-number="2.0.2">
+<h3 data-number="2.0.2" class="anchored" data-anchor-id="data"><span class="header-section-number">2.0.2</span> Data</h3>
 <p>The data for this report is scraped from: <a href="https://www.privacyaffairs.com/gdpr-fines/">Privacy Affairs: GDPR Fines List</a>. The data is then transformed into a tabular format and writtedn to <code>data/scraped_gdpr_fines.csv</code> This can be recreated by running:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python scripts<span class="op">/</span>scrape_gdpr_fines.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="3b383fe8" class="cell" data-execution_count="2">
+<div id="835b0809" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(<span class="st">"../data/scraped_fines.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"date"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -175,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tbl-data-info-cols" class="cell anchored" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-info-cols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: GDPR Fines: Informative Columns
+Table&nbsp;2.1: GDPR Fines: Informative Columns
 </figcaption>
 <div aria-describedby="tbl-data-info-cols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -272,7 +350,7 @@ Table&nbsp;1: GDPR Fines: Informative Columns
 <div id="tbl-data-price-col" class="cell anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-price-col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: GDPR Fines: Price Column Distribution
+Table&nbsp;2.2: GDPR Fines: Price Column Distribution
 </figcaption>
 <div aria-describedby="tbl-data-price-col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -319,7 +397,7 @@ Table&nbsp;2: GDPR Fines: Price Column Distribution
 <li>remove fines with 0 price</li>
 <li>remove whitespace from type column</li>
 </ol>
-<div id="0ebdb360" class="cell" data-execution_count="5">
+<div id="95fac5f7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fines_nozero <span class="op">=</span> (</span>
@@ -344,7 +422,7 @@ Table&nbsp;2: GDPR Fines: Price Column Distribution
 <div id="tbl-data-price-col2" class="cell anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-price-col2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: GDPR Fines: Price Column Distribution
+Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </figcaption>
 <div aria-describedby="tbl-data-price-col2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -387,8 +465,8 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 </div>
 </div>
 </section>
-<section id="questions" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Questions</h1>
+<section id="questions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">2.1</span> Questions</h2>
 <p>Through visualisation the following questions will be explored. This is with the goal of understanding: The financial penalty (fine amount), poor data controllers, particular articles.</p>
 <p><strong>On the Fine Amount: </strong></p>
 <ol type="1">
@@ -404,11 +482,11 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <ol type="1">
 <li>Which articles are referrenced the most often</li>
 </ol>
-<section id="fine-value" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="fine-value"><span class="header-section-number">1.1</span> Fine Value</h2>
-<section id="how-are-the-fines-distributed" class="level3">
-<h3 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h3>
-<div id="5e92bfaf" class="cell" data-execution_count="7">
+<section id="fine-value" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="fine-value"><span class="header-section-number">2.1.1</span> Fine Value</h3>
+<section id="how-are-the-fines-distributed" class="level4">
+<h4 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h4>
+<div id="1d26bf4e" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
@@ -421,7 +499,7 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.0f}</span><span class="st"> €'</span>.<span class="bu">format</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="7d877c5c" class="cell" data-execution_count="8">
+<div id="a9166e67" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -457,20 +535,20 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="745" height="515" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="698" height="477" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>By visualising the distribution of fines as a simple histogram it was immediately clear there was a large degree of right-skew. This is typical with financial data. Because of the high right-skew, the decision was made to visualise the data on a logarithmic scale.</p>
-<p><a href="#tbl-data-price-col2" class="quarto-xref">Table&nbsp;3</a> shows the five figure summary of the price column. Fine value ranges from 28 to 1200000000.</p>
+<p><a href="#tbl-data-price-col2" class="quarto-xref">Table&nbsp;<span>2.3</span></a> shows the five figure summary of the price column. Fine value ranges from 28 to 1200000000.</p>
 <p>Most of the fines fall between 1000 and 100000 Euros.</p>
 </section>
-<section id="how-has-the-distribution-of-fines-changed-over-time" class="level3">
-<h3 class="anchored" data-anchor-id="how-has-the-distribution-of-fines-changed-over-time">How has the distribution of fines changed over time?</h3>
+<section id="how-has-the-distribution-of-fines-changed-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="how-has-the-distribution-of-fines-changed-over-time">How has the distribution of fines changed over time?</h4>
 <p>Looking at each year’s distribution of fines as a boxplot allows for them to be compared. If they boxes move up the y-axis it would give credence that the fine values are increasing over time.</p>
 <p>By including the actual data points (each fine occurence) as an overlayed jitters, it’s also possible to see if the number of fines is increasing.</p>
-<div id="3ba37f89" class="cell" data-tags="[]" data-execution_count="9">
+<div id="a5578d59" class="cell" data-tags="[]" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (fines_nozero.assign(</span>
@@ -550,7 +628,7 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="745" height="511" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="698" height="472" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -562,8 +640,8 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <p>It doesn’t look as if there is a clear trend in the distribution of fines.</p>
 </section>
 </section>
-<section id="controllers" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="controllers"><span class="header-section-number">1.2</span> Controllers</h2>
+<section id="controllers" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="controllers"><span class="header-section-number">2.1.2</span> Controllers</h3>
 <ol type="1">
 <li>Who pays the most?</li>
 <li>Who pays the most often?</li>
@@ -577,9 +655,9 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 </ul>
 <p>This is useful for direct comparison.</p>
 <p>The large companies (e.g.&nbsp;Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e.&nbsp;Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc.&nbsp;(Facebook), Meta Platforms Ireland Limited (Facebook), etc.)</p>
-<section id="who-pays-the-most" class="level3">
-<h3 class="anchored" data-anchor-id="who-pays-the-most">Who pays the most?</h3>
-<div id="5f8ba1b4" class="cell" data-tags="[]" data-execution_count="10">
+<section id="who-pays-the-most" class="level4">
+<h4 class="anchored" data-anchor-id="who-pays-the-most">Who pays the most?</h4>
+<div id="2d498658" class="cell" data-tags="[]" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strfind(series, term):</span>
@@ -661,7 +739,7 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 </div>
 </div>
 </div>
-<div id="4c3f4c5e" class="cell" data-tags="[]" data-execution_count="11">
+<div id="468e4a8e" class="cell" data-tags="[]" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
@@ -690,15 +768,15 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-12-output-1.png" width="743" height="491" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-12-output-1.png" width="695" height="453" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="who-pays-the-most-often" class="level3">
-<h3 class="anchored" data-anchor-id="who-pays-the-most-often">Who Pays the Most Often?</h3>
-<div id="f5911be4" class="cell" data-tags="[]" data-execution_count="12">
+<section id="who-pays-the-most-often" class="level4">
+<h4 class="anchored" data-anchor-id="who-pays-the-most-often">Who Pays the Most Often?</h4>
+<div id="81418d51" class="cell" data-tags="[]" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Private Individual"</span>, <span class="st">"Unknown"</span>, <span class="st">"Company"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>]</span>
@@ -732,25 +810,25 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="743" height="491" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="695" height="453" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="article-references" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">1.3</span> Article References</h2>
+<section id="article-references" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">2.1.3</span> Article References</h3>
 <p>At present the data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It’s possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e.&nbsp;one row per article violation) the data will need to elongated.</p>
-<div id="8855d54d" class="cell" data-execution_count="13">
+<div id="fa44b481" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="which-articles-are-referenced-the-most-often" class="level3">
-<h3 class="anchored" data-anchor-id="which-articles-are-referenced-the-most-often">Which articles are referenced the most often?</h3>
-<div id="4feca587" class="cell" data-tags="[]" data-execution_count="14">
+<section id="which-articles-are-referenced-the-most-often" class="level4">
+<h4 class="anchored" data-anchor-id="which-articles-are-referenced-the-most-often">Which articles are referenced the most often?</h4>
+<div id="5289573c" class="cell" data-tags="[]" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df showing article next to how often it was referenced.</span></span>
@@ -762,7 +840,7 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="ea34bc67" class="cell" data-tags="[]" data-execution_count="15">
+<div id="d7dc52f8" class="cell" data-tags="[]" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
@@ -789,12 +867,12 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-16-output-1.png" width="743" height="491" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-16-output-1.png" width="695" height="453" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="97da642c" class="cell" data-execution_count="16">
+<div id="138f2721" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
@@ -835,17 +913,18 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-17-output-1.png" width="743" height="491" class="figure-img"></p>
+<p><img src="data_exploration_files/figure-html/cell-17-output-1.png" width="695" height="453" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+
+
 </section>
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1243,6 +1322,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link  aria-label=" &lt;span="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../dev.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Regression Analysis</span>">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regression Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

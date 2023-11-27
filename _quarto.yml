@@ -1,11 +1,26 @@
+project:
+  type: book
+  output-dir: _book
+  render:
+    - index.qmd
+    - notebooks/data_exploration.qmd
+    - dev.ipynb
+
+book:
+  title: "GDPR Fines Regression Analysis"
+  author: "David Currie"
+  date: "27/11/2023"
+  chapters:
+    - index.qmd
+    - notebooks/data_exploration.qmd
+    - dev.ipynb
+
 format:
   html: 
     code-fold: true
-    fig-height: 5
-    fig-width: 8
     toc: true
     number-sections: true
-    number-depth: 2
+    number-depth: 3
     css: styles.css
 
 jupyter: python3

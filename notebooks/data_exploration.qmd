@@ -4,7 +4,7 @@ title: GDPR Fines Data Exploration
 
 This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR [(General Data Protection Regulation)](https://gdpr-info.eu/), which aims to protect the information of European Union citizens, took affect in May 2018.
 
-## Setup
+### Setup
 
 ```{python}
 #| tags: []
@@ -26,7 +26,7 @@ import params.plt_params
 ```
 
 
-## Data
+### Data
 
 The data for this report is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The  data is then transformed into a tabular format and writtedn to `data/scraped_gdpr_fines.csv` This can be recreated by running:
 
@@ -94,7 +94,7 @@ with pd.option_context("display.precision", 2):
         )
 ```
 
-# Questions
+## Questions
 
 Through visualisation the following questions will be explored. This is with the goal of understanding: The financial penalty (fine amount), poor data controllers, particular articles.
 
@@ -112,9 +112,9 @@ __On the Articles: __
 
 1. Which articles are referrenced the most often
 
-## Fine Value
+### Fine Value
 
-### How are the fines distributed?
+#### How are the fines distributed?
 
 ```{python}
 def big_currency(x, pos):
@@ -165,7 +165,7 @@ By visualising the distribution of fines as a simple histogram it was immediatel
 
 Most of the fines fall between 1000 and 100000 Euros.
 
-### How has the distribution of fines changed over time?
+#### How has the distribution of fines changed over time?
 
 Looking at each year's distribution of fines as a boxplot allows for them to be compared. If they boxes move up the y-axis it would give credence that the fine values are increasing over time.
 
@@ -257,10 +257,10 @@ Looking at the number of data points per year it looks like 2022 had more GDPR f
 
 This report was conducted late in 2023. While this may explain why there are fewer points on the 2023 box, it still looks like there will be fewer fines than in previous years.
 
-It doesn't look as if there is a clear trend in the distribution of fines.
+It doesn't look as if there is a clear trend in the distribution of fines. 
 
 
-## Controllers
+### Controllers
 
 1. Who pays the most?
 2. Who pays the most often? 
@@ -277,7 +277,7 @@ This is useful for direct comparison.
 The large companies (e.g. Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e. Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc. (Facebook), Meta Platforms Ireland Limited (Facebook), etc.)
 
 
-### Who pays the most?
+#### Who pays the most?
 
 ```{python}
 #| tags: []
@@ -345,7 +345,7 @@ fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
-### Who Pays the Most Often?
+#### Who Pays the Most Often?
 
 ```{python}
 #| tags: []
@@ -380,7 +380,7 @@ fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
-## Article References
+### Article References
 
 At present the data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It's possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e. one row per article violation) the data will need to elongated.
 
@@ -388,7 +388,7 @@ At present the data is structured such that each row represents a single instanc
 fines_long = pivot_fines_longer(fines_nozero)
 ```
 
-### Which articles are referenced the most often?
+#### Which articles are referenced the most often?
 
 ```{python}
 #| tags: []

@@ -15,7 +15,7 @@ mpl.rcParams.update(
         "ytick.left": False,
         "xtick.bottom": False,
         "figure.facecolor": "white",
-        "figure.figsize": (7.9, 5.4),
+        "figure.figsize": (7.4, 5),
         "figure.autolayout": True
     }
 )
