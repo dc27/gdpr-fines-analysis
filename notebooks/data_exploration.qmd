@@ -28,7 +28,7 @@ import params.plt_params
 
 ### Data
 
-The data for this report is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The  data is then transformed into a tabular format and writtedn to `data/scraped_gdpr_fines.csv` This can be recreated by running:
+The data for this report is scraped from: [Privacy Affairs: GDPR Fines List](https://www.privacyaffairs.com/gdpr-fines/). The  data is then transformed into a tabular format and written to `data/scraped_gdpr_fines.csv` This can be recreated by running:
 
 ```python
 python scripts/scrape_gdpr_fines.py
@@ -66,7 +66,7 @@ with pd.option_context("display.precision", 2):
         )
 ```
 
-The minumum value of fines is 0. This seems incorrect (and worth investigating!) but with the assumption that fines should fall in the range $ 0 \gt \textrm{fine amount} \gt \inf $. Before performing analysis a minor amount of cleaning is required for the 'raw' data
+The minumum value of fines is 0. This seems incorrect (and worth investigating!) but with the assumption that fines should fall in the range $0 \gt \textrm{fine amount} \gt \infty$. Before performing analysis a minor amount of cleaning is required for the 'raw' data
 
 1. remove fines with 0 price
 1. remove whitespace from type column
@@ -113,6 +113,11 @@ __On the Articles: __
 1. Which articles are referrenced the most often
 
 ### Fine Value
+
+Questions on the fine amount:
+
+1. How are the fine amounts distributed?
+1. How does the distribution of fine amount change over time?
 
 #### How are the fines distributed?
 
@@ -161,11 +166,11 @@ plt.show()
 
 By visualising the distribution of fines as a simple histogram it was immediately clear there was a large degree of right-skew. This is typical with financial data. Because of the high right-skew, the decision was made to visualise the data on a logarithmic scale.
 
-@tbl-data-price-col2 shows the five figure summary of the price column. Fine value ranges from `{python} fines_nozero.price.min()` to `{python} fines_nozero.price.max()`.
+@tbl-data-price-col2 shows the five figure summary of the price column. Fine value ranges from `{python} fines_nozero.price.min()` to `{python} f"{fines_nozero.price.max():,}"`.
 
-Most of the fines fall between 1000 and 100000 Euros.
+Most of the fines fall between 1000 and 100,000 Euros.
 
-#### How has the distribution of fines changed over time?
+#### How does the distribution of fines change over time?
 
 Looking at each year's distribution of fines as a boxplot allows for them to be compared. If they boxes move up the y-axis it would give credence that the fine values are increasing over time.
 
@@ -276,14 +281,11 @@ This is useful for direct comparison.
 
 The large companies (e.g. Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e. Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc. (Facebook), Meta Platforms Ireland Limited (Facebook), etc.)
 
-
-#### Who pays the most?
-
 ```{python}
 #| tags: []
 def strfind(series, term):
     """"
-    time-saver
+    time-saver function
     """
     return series.str.contains(term, case=False)
 
@@ -316,8 +318,11 @@ controller_stats = (
     .reset_index()
 )
 
-controller_stats.sort_values('total_price', ascending=False).head(3)
+controller_stats.sort_values('total_price', ascending=False).head(10)
 ```
+
+
+#### Who pays the most?
 
 ```{python}
 #| tags: []
@@ -345,12 +350,17 @@ fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
+
+What should be immediately clear is that Facebook/Meta have paid such large amounts in GDPR-violation fines that it becomes difficult to assess the scale of other companies' violations.
+
+According to this data. Facebook/Meta have had to pay: `{python} f"{controller_stats.total_price.max():,}"`
+
+
 #### Who Pays the Most Often?
 
 ```{python}
-#| tags: []
 
-
+# some controller names don't relate to companies or are uninformative
 DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
 
 fig, ax = plt.subplots()
