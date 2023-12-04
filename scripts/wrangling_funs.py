@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 def filter_for_positives(df: pd.DataFrame, column:str)->pd.DataFrame:
     """
     Filters a column of interest in a pandas dataframe to contain only positive values.
@@ -23,6 +24,19 @@ def strip_text_col(df: pd.DataFrame, column:str)->pd.DataFrame:
         raise TypeError
 
     df[column] = df[column].str.strip()
+    return df
+
+def replace_accent_characters(df: pd.DataFrame, column:str)->pd.DataFrame:
+    """
+    Replaces accented characters with ascii counterparts. (bånana -> banana)
+    """
+
+        # only attempt text (object) values
+    if df[column].dtype != np.object_:
+        raise TypeError
+
+    df[column] = df[column].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
+
     return df
 
 def read_and_clean_fines_data(path: str)->pd.DataFrame:

@@ -13,13 +13,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
+import textwrap
 
 # grab functions from script files. we're in a subdirectory so...
 import sys
 sys.path.append(r"../")
 
 # helper functions
-from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer
+from scripts.wrangling_funs import filter_for_positives, strip_text_col, pivot_fines_longer, replace_accent_characters
 
 # plot styles
 import params.plt_params
@@ -76,6 +77,7 @@ fines_nozero = (
     fines
     .pipe(filter_for_positives, "price")
     .pipe(strip_text_col, "type")
+    .pipe(replace_accent_characters, "controller")
 )
 ```
 
@@ -110,7 +112,8 @@ __On the Controllers: __
 
 __On the Articles: __
 
-1. Which articles are referrenced the most often
+1. Which articles are referenced the most often
+1. What is the distribution of fine amounts where that article is referenced?
 
 ### Fine Value
 
@@ -298,11 +301,11 @@ fines_controller_gb = (
             [strfind(x.controller, "Facebook"), strfind(x.controller, "Meta "), strfind(x.controller, "Amazon"),
              strfind(x.controller, "Google"), strfind(x.controller, "Microsoft"), strfind(x.controller, "Vodafone"),
              strfind(x.controller, "WhatsApp"), strfind(x.controller, "Clearview"), strfind(x.controller, "H&M"),
-             strfind(x.controller, "Marriott")],
+             strfind(x.controller, "Marriott"), strfind(x.controller, "Telefonica Moviles")],
             ["Facebook/Meta", "Facebook/Meta", "Amazon",
              "Google", "Microsoft", "Vodafone",
              "WhatsApp", "Clearview AI", "H&M",
-             "Marriot"],
+             "Marriot", "Telefonica Moviles Espana"],
             x.controller
         )
     )
@@ -324,6 +327,8 @@ controller_stats.sort_values('total_price', ascending=False).head(10)
 
 #### Who pays the most?
 
+With the data in this form (each row being a single controller) and the variables relating to statistics on their fines, the controllers with the highest total amount in fines paid can be found easily. First by sorting the data based on `total_price`, then by visualising those totals for the top n rows. In this case `n = 10`.
+
 ```{python}
 #| tags: []
 TOP_N = 10
@@ -336,6 +341,9 @@ sns.barplot(y='shortname', x='total_price', data=controller_stats.nlargest(TOP_N
 ax.set(xlabel="\nTotal Amount Paid in Fines", ylabel=None)
 ax.xaxis.set_major_formatter(big_currency)
 
+# wrap long labels
+f = lambda x: textwrap.fill(x.get_text(), 20)
+ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
 fig.canvas.draw()
 ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
@@ -353,26 +361,34 @@ plt.show()
 
 What should be immediately clear is that Facebook/Meta have paid such large amounts in GDPR-violation fines that it becomes difficult to assess the scale of other companies' violations.
 
-According to this data. Facebook/Meta have had to pay: `{python} f"{controller_stats.total_price.max():,}"`
-
+According to this data, Facebook/Meta have had to pay: `{python} f"{controller_stats.total_price.max():,}"`in fines.
 
 #### Who Pays the Most Often?
 
-```{python}
+From the collapsed controller statistics the number of recorded violations is immediately available for plotting too. This is the number of times each controller has been found in violation of one or more GDPR articles and has been fined.
 
-# some controller names don't relate to companies or are uninformative
-DONT_INCLUDE = ["Private Individual", "Unknown", "Company", "Unknown Company", "Not Available"]
+One note: some controller names don't relate to companies or are uninformative ("Unknown Company", "Not Available"). These have therefore been removed before plotting.
+
+```{python}
+# some controller names are uninformative
+DONT_INCLUDE = ["Unknown", "Unknown Company", "Not Available"]
 
 fig, ax = plt.subplots()
 
-sns.barplot(y='shortname', x='counts',
-            data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=TOP_N, columns='counts'),
-            color='midnightblue', ax=ax, orient='h', alpha=0.8)
+sns.barplot(
+    y='shortname', x='counts',
+    data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=TOP_N, columns='counts'),
+    color='midnightblue', ax=ax, orient='h', alpha=0.8
+    )
 
 ax.set(
     xlabel="\nn Times Fined", ylabel=None,
     xticks=range(0, controller_stats.counts.max(), 10)
     )
+
+# wrap long labels
+f = lambda x: textwrap.fill(x.get_text(), 20)
+ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
 fig.canvas.draw()
 
@@ -390,18 +406,71 @@ fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
+
+The plot shows that the most frequently-fined controller is "Private Individual". Since this more likely relates to many different individuals, it's also probably worth looking at the results without these non-specific identifiers. I.e. without terms like: "Private Individual", "Company", "Store Owner", "Police Officer", ...
+
+
+```{python}
+# some controller names don't relate to specific companies or are uninformative
+DONT_INCLUDE = ["Unknown", "Unknown Company", "Not Available", "Not Disclosed", "Private Individual", "Company", "Homeowners Association", "Store Owner", "Police Officer", "Website Operator", "Bank", "Employer", "Physician", "Restaurant", "Retailer", "Covid-19 Test Center", "Private Person", "..", "Political Party", "Telecommunication Service Provider"]
+
+TOP_N = 10
+
+fig, ax = plt.subplots()
+
+sns.barplot(
+    y='shortname', x='counts',
+    data=controller_stats.query(f'~shortname.isin({DONT_INCLUDE})').nlargest(n=TOP_N, columns='counts'),
+    color='midnightblue', ax=ax, orient='h', alpha=0.8
+    )
+
+ax.set(
+    xlabel="\nn Times Fined", ylabel=None,
+    xticks=range(0, controller_stats.counts.max(), 10)
+    )
+
+# wrap long labels
+f = lambda x: textwrap.fill(x.get_text(), 20)
+ax.set_yticklabels(map(f, ax.get_yticklabels()))
+
+fig.canvas.draw()
+
+# title and subtitle
+ax.set_title(
+    label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=12)
+fig.suptitle(
+    t="Who Pays the Most Often?", ha='left', fontsize=16,
+    x=ax.get_position().x0,
+    y=ax.get_position().y1*0.975
+    )
+
+fig.patch.set_linewidth(1)
+fig.patch.set_edgecolor("black")
+plt.show()
+```
+
+
+This is a bit cleaner. It's clear that apart from 3, controllers typically haven't been fined more than 10 times. Vodafone are the surprise here, with over 80 incidences of GDPR violations.
+
+During the filtering the following were excluded but they are of interest that these 'classes' of organisation are often found in violation of GDPR. In descending order:
+
+```{python}
+INCLUDE = ["Private Individual", "Company", "Homeowners Association", "Store Owner", "Police Officer", "Website Operator", "Bank", "Employer", "Physician", "Restaurant", "Retailer", "Covid-19 Test Center", "Private Person", "Political Party", "Telecommunication Service Provider"]
+
+(
+    controller_stats
+    .query(f'shortname.isin({INCLUDE})')
+    .sort_values('counts',  ascending=False)
+)    
+```
+
 ### Article References
 
-At present the data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It's possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e. one row per article violation) the data will need to elongated.
+At present, the clean fines data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It's possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e. one row per article violation) the data will need to pivoted longer. After the data have been put into a longer format, each individual article can be counted using pandas `pd.DataFrame.value_counts()`.
 
 ```{python}
 fines_long = pivot_fines_longer(fines_nozero)
-```
 
-#### Which articles are referenced the most often?
-
-```{python}
-#| tags: []
 # df showing article next to how often it was referenced.
 n_citations = (
     fines_long
@@ -411,15 +480,22 @@ n_citations = (
 )
 ```
 
-```{python}
-#| tags: []
+#### Which articles are referenced the most often?
 
+There are over 50 different article numbers recorded. Looking at only articles refernced at least 30 times:
+
+```{python}
 
 MIN_OCCURENCES = 30
 
 fig, ax = plt.subplots()
 
-sns.barplot(x='article_number', y='count', data=n_citations.query(f'count >= {MIN_OCCURENCES}'), orient='v', color='grey', ax=ax)
+sns.barplot(
+    x='article_number', y='count',
+    data=n_citations.query(f'count >= {MIN_OCCURENCES}'),
+    orient='v', color='grey', ax=ax
+    )
+
 ax.tick_params(axis='y', which='major')
 ax.set(
     xlabel='\nArticle Number',
@@ -436,6 +512,10 @@ fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```
+
+We can see from the barplot that articles 5, 6, 13, and 32 are the most frequently referrenced articles (all over 200 instances). With 5 being the most frequently referrenced article.
+
+#### Distribution of Fine Price per Article
 
 ```{python}
 MIN_OCCURENCES = 30
