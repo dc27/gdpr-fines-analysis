@@ -7,7 +7,7 @@ This report was produced in Nov 2023 and focusses on exploratory analysis of GDP
 ### Setup
 
 ```{python}
-#| tags: []
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -36,7 +36,10 @@ python scripts/scrape_gdpr_fines.py
 ```
 
 ```{python}
-fines = pd.read_csv("../data/scraped_fines.csv", parse_dates=["date"])
+fines = pd.read_csv(
+    "../data/scraped_fines.csv",
+    parse_dates=["date"]
+    )
 ```
 
 The data consists of `{python} fines.shape[0]` rows of `{python} fines.shape[1]` variables. Each row of data relates to a single occurence of GDPR violation along with it's penalty amount (fine), the local controller, the organisation found in violation, and the articles of GDPR they were found in violation of.
@@ -136,6 +139,8 @@ def big_currency(x, pos):
 ```
 
 ```{python}
+#| label:  fig-fine-distribution
+#| fig-cap: "GDPR Fine Distribution"
 fig, ax = plt.subplots()
 
 sns.histplot(
@@ -159,7 +164,7 @@ fig.suptitle(
     t="GDPR Fine Distributions (Log Scale)", 
     x=ax.get_position().x0,
     y=ax.get_position().y1,
-    ha="left", fontsize=16,
+    ha="left", fontsize=14,
 )
 
 fig.patch.set_linewidth(1)
@@ -180,7 +185,8 @@ Looking at each year's distribution of fines as a boxplot allows for them to be 
 By including the actual data points (each fine occurence) as an overlayed jitters, it's also possible to see if the number of fines is increasing.
 
 ```{python}
-#| tags: []
+#| label:  fig-distribution-by-year
+#| fig-cap: "Yearly GDPR Fine Distribution"
 df = (fines_nozero.assign(
     year = lambda x: x.date.dt.year
 ))
@@ -243,13 +249,13 @@ fig.suptitle(
     t="How has the distribution of fines changed over time?", 
     ha='left',
     x=ax[0].get_position().x0+0.03,
-    fontsize=16,
+    fontsize=14,
     y=ax[0].get_position().y1*1.015,
     va='top'
 )
 
 # subtitle
-plt.figtext(x=ax[0].get_position().x0+0.03, y=ax[0].get_position().y1*0.925, s="GDPR Fine Distributions Over Time (Log Scale)", va="bottom", ha="left", size=12)
+plt.figtext(x=ax[0].get_position().x0+0.03, y=ax[0].get_position().y1*0.925, s="GDPR Fine Distributions Over Time (Log Scale)", va="bottom", ha="left", size=11)
 
 fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
@@ -257,7 +263,7 @@ plt.show()
 ```
 
 
-The plot shows an immediate curiosity: several fines are labelled as being given in 1970. It looks like this was this data's way of encoding `NA` for the date of fine.
+Several fines are labelled as being given in 1970. It looks like this was this data's way of encoding `NA` for the date of fine (GDPR didn't come into practice until 2018.)
 
 The other boxes only vary slightly. They all show Q1 above 1000, Q2 (median around 10000) and Q3 between 10000 and 100000. One notable exception is 2022 which is lower on the y axis.
 
@@ -330,7 +336,8 @@ controller_stats.sort_values('total_price', ascending=False).head(10)
 With the data in this form (each row being a single controller) and the variables relating to statistics on their fines, the controllers with the highest total amount in fines paid can be found easily. First by sorting the data based on `total_price`, then by visualising those totals for the top n rows. In this case `n = 10`.
 
 ```{python}
-#| tags: []
+#| label:  fig-controller-fine-amount-bar
+#| fig-cap: "Total Fine Price Paid By Controller (10 Highest)"
 TOP_N = 10
 
 fig, ax = plt.subplots()
@@ -346,9 +353,9 @@ f = lambda x: textwrap.fill(x.get_text(), 20)
 ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
 fig.canvas.draw()
-ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=12)
+ax.set_title(label=f"Total Amount Paid in Fines Controllers (Top {TOP_N})", loc="left", ha="left", size=11)
 fig.suptitle(
-    t="Who Pays the Most?", ha='left', fontsize=16,
+    t="Who Pays the Most?", ha='left', fontsize=14,
     x=ax.get_position().x0,
     y=ax.get_position().y1*0.975
     )
@@ -370,8 +377,12 @@ From the collapsed controller statistics the number of recorded violations is im
 One note: some controller names don't relate to companies or are uninformative ("Unknown Company", "Not Available"). These have therefore been removed before plotting.
 
 ```{python}
+#| label:  fig-controller-fine-counts-bar
+#| fig-cap: "Total Number Of Fines Paid By Controller (10 Highest)"
+
 # some controller names are uninformative
 DONT_INCLUDE = ["Unknown", "Unknown Company", "Not Available"]
+TOP_N = 10
 
 fig, ax = plt.subplots()
 
@@ -394,9 +405,9 @@ fig.canvas.draw()
 
 # title and subtitle
 ax.set_title(
-    label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=12)
+    label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=11)
 fig.suptitle(
-    t="Who Pays the Most Often?", ha='left', fontsize=16,
+    t="Who Pays the Most Often?", ha='left', fontsize=14,
     x=ax.get_position().x0,
     y=ax.get_position().y1*0.975
     )
@@ -411,6 +422,9 @@ The plot shows that the most frequently-fined controller is "Private Individual"
 
 
 ```{python}
+#| label:  fig-filtered-controller-fine-amount-bar
+#| fig-cap: "Total Amount Paid By Controller (10 Highest) [Filtered]"
+
 # some controller names don't relate to specific companies or are uninformative
 DONT_INCLUDE = ["Unknown", "Unknown Company", "Not Available", "Not Disclosed", "Private Individual", "Company", "Homeowners Association", "Store Owner", "Police Officer", "Website Operator", "Bank", "Employer", "Physician", "Restaurant", "Retailer", "Covid-19 Test Center", "Private Person", "..", "Political Party", "Telecommunication Service Provider"]
 
@@ -437,9 +451,9 @@ fig.canvas.draw()
 
 # title and subtitle
 ax.set_title(
-    label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=12)
+    label=f"Number of Times Each Controller has been Fined (Top {TOP_N})", loc="left", ha="left", size=11)
 fig.suptitle(
-    t="Who Pays the Most Often?", ha='left', fontsize=16,
+    t="Who Pays the Most Often?", ha='left', fontsize=14,
     x=ax.get_position().x0,
     y=ax.get_position().y1*0.975
     )
@@ -455,6 +469,8 @@ This is a bit cleaner. It's clear that apart from 3, controllers typically haven
 During the filtering the following were excluded but they are of interest that these 'classes' of organisation are often found in violation of GDPR. In descending order:
 
 ```{python}
+#| label:  tbl-controller-class
+#| tbl-cap: "Controller Statistics for Non-Specific Entities"
 INCLUDE = ["Private Individual", "Company", "Homeowners Association", "Store Owner", "Police Officer", "Website Operator", "Bank", "Employer", "Physician", "Restaurant", "Retailer", "Covid-19 Test Center", "Private Person", "Political Party", "Telecommunication Service Provider"]
 
 (
@@ -485,6 +501,8 @@ n_citations = (
 There are over 50 different article numbers recorded. Looking at only articles refernced at least 30 times:
 
 ```{python}
+#| label:  fig-article-references-bar
+#| fig-cap: "Total References Made to Article (at least 30 occurences)"
 
 MIN_OCCURENCES = 30
 
@@ -505,22 +523,33 @@ ax.set(
 fig.canvas.draw()
 
 # title + subtitle
-ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=12)
-fig.suptitle('Number of Fines by Article Number', x=ax.get_position().x0, ha='left', fontsize=16, y=ax.get_position().y1*0.975)
+ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=11)
+fig.suptitle('Number of Fines by Article Number', x=ax.get_position().x0, ha='left', fontsize=14, y=ax.get_position().y1*0.975)
 
 fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```
 
-We can see from the barplot that articles 5, 6, 13, and 32 are the most frequently referrenced articles (all over 200 instances). With 5 being the most frequently referrenced article.
+We can see from the barplot that articles 5, 6, 13, and 32 are the most frequently referrenced articles (all over 200 instances). With 5 being the most frequently referrenced article (over 800 times alone)
 
 #### Distribution of Fine Price per Article
 
+For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an violation instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at $y = total_fine_euro$.
+
+Similar to @fig-distribution-by-year, it's possible to compare the number of references per article since the points have been overlayed with a jitter effect.
+
 ```{python}
+#| label:  fig-fine-distribution-by-art
+#| fig-cap: "Fine Value by Article (for Articles with at least 30 occurences)"
+
 MIN_OCCURENCES = 30
 
-df = n_citations.query(f'count >= {MIN_OCCURENCES}').merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
+df = (
+    n_citations
+    .query(f'count >= {MIN_OCCURENCES}')
+    .merge(fines_long, how='inner', left_on='article_number', right_on='article_number')
+)
 
 fig, ax = plt.subplots()
 
@@ -544,8 +573,8 @@ ax.yaxis.set_major_formatter(big_currency)
 fig.canvas.draw()
 
 # title + subtitle
-ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=12)
-fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_position().x0, ha='left', fontsize=16, y=ax.get_position().ymax*0.975)
+ax.set_title(f'At least than {MIN_OCCURENCES} instances', loc='left', fontsize=11)
+fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_position().x0, ha='left', fontsize=14, y=ax.get_position().ymax*0.975)
 
 ax.grid(visible=True, axis="both")
 
@@ -553,3 +582,7 @@ fig.patch.set_linewidth(1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```
+
+It's not immediately clear that any particle article relates to an approximate increase or decrease in fine amount.
+
+There is perhaps some cause to suggest that the more infrequent article references sometimes correlate with a higher fine amount.

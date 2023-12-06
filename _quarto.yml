@@ -22,6 +22,7 @@ format:
     number-sections: true
     number-depth: 3
     css: styles.css
+    fig-width: 7.1
 
 jupyter: python3
 keep-ipynb: false

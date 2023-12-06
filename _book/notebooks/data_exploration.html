@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR <a href="https://gdpr-info.eu/">(General Data Protection Regulation)</a>, which aims to protect the information of European Union citizens, took affect in May 2018.</p>
 <section id="setup" class="level3" data-number="2.0.1">
 <h3 data-number="2.0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.0.1</span> Setup</h3>
-<div id="96b56407" class="cell" data-tags="[]" data-execution_count="1">
+<div id="978fc55e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -235,10 +235,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.0.2" class="anchored" data-anchor-id="data"><span class="header-section-number">2.0.2</span> Data</h3>
 <p>The data for this report is scraped from: <a href="https://www.privacyaffairs.com/gdpr-fines/">Privacy Affairs: GDPR Fines List</a>. The data is then transformed into a tabular format and written to <code>data/scraped_gdpr_fines.csv</code> This can be recreated by running:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python scripts<span class="op">/</span>scrape_gdpr_fines.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="9a54c521" class="cell" data-execution_count="2">
+<div id="17a18680" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(<span class="st">"../data/scraped_fines.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"date"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../data/scraped_fines.csv"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span>[<span class="st">"date"</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The data consists of 1701 rows of 11 variables. Each row of data relates to a single occurence of GDPR violation along with it’s penalty amount (fine), the local controller, the organisation found in violation, and the articles of GDPR they were found in violation of.</p>
@@ -400,7 +403,7 @@ Table&nbsp;2.2: GDPR Fines: Price Column Distribution
 <li>remove fines with 0 price</li>
 <li>remove whitespace from type column</li>
 </ol>
-<div id="9ba54a83" class="cell" data-execution_count="5">
+<div id="2f8f8bbd" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fines_nozero <span class="op">=</span> (</span>
@@ -496,7 +499,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </ol>
 <section id="how-are-the-fines-distributed" class="level4">
 <h4 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h4>
-<div id="01aec0ca" class="cell" data-execution_count="7">
+<div id="f5acf185" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
@@ -509,7 +512,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'</span><span class="sc">{:1.0f}</span><span class="st"> €'</span>.<span class="bu">format</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="23ebc6aa" class="cell" data-execution_count="8">
+<div id="cell-fig-fine-distribution" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -535,7 +538,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"GDPR Fine Distributions (Log Scale)"</span>, </span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1,</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">"left"</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">"left"</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
@@ -543,9 +546,14 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-9-output-1.png" width="660" height="477" class="figure-img"></p>
+<div id="fig-fine-distribution" class="quarto-figure quarto-figure-center anchored" height="432" width="692">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fine-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-fine-distribution-output-1.png" width="692" height="432" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-fine-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: GDPR Fine Distribution
+</figcaption>
 </figure>
 </div>
 </div>
@@ -558,7 +566,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <h4 class="anchored" data-anchor-id="how-does-the-distribution-of-fines-change-over-time">How does the distribution of fines change over time?</h4>
 <p>Looking at each year’s distribution of fines as a boxplot allows for them to be compared. If they boxes move up the y-axis it would give credence that the fine values are increasing over time.</p>
 <p>By including the actual data points (each fine occurence) as an overlayed jitters, it’s also possible to see if the number of fines is increasing.</p>
-<div id="d987e4c2" class="cell" data-tags="[]" data-execution_count="9">
+<div id="cell-fig-distribution-by-year" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (fines_nozero.assign(</span>
@@ -623,27 +631,32 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"How has the distribution of fines changed over time?"</span>, </span>
 <span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    ha<span class="op">=</span><span class="st">'left'</span>,</span>
 <span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0<span class="op">+</span><span class="fl">0.03</span>,</span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">14</span>,</span>
 <span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax[<span class="dv">0</span>].get_position().y1<span class="op">*</span><span class="fl">1.015</span>,</span>
 <span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>    va<span class="op">=</span><span class="st">'top'</span></span>
 <span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co"># subtitle</span></span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>plt.figtext(x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0<span class="op">+</span><span class="fl">0.03</span>, y<span class="op">=</span>ax[<span class="dv">0</span>].get_position().y1<span class="op">*</span><span class="fl">0.925</span>, s<span class="op">=</span><span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>plt.figtext(x<span class="op">=</span>ax[<span class="dv">0</span>].get_position().x0<span class="op">+</span><span class="fl">0.03</span>, y<span class="op">=</span>ax[<span class="dv">0</span>].get_position().y1<span class="op">*</span><span class="fl">0.925</span>, s<span class="op">=</span><span class="st">"GDPR Fine Distributions Over Time (Log Scale)"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
 <span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
 <span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-10-output-1.png" width="695" height="472" class="figure-img"></p>
+<div id="fig-distribution-by-year" class="quarto-figure quarto-figure-center anchored" height="429" width="692">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-distribution-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-distribution-by-year-output-1.png" width="692" height="429" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-distribution-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Yearly GDPR Fine Distribution
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plot shows an immediate curiosity: several fines are labelled as being given in 1970. It looks like this was this data’s way of encoding <code>NA</code> for the date of fine.</p>
+<p>Several fines are labelled as being given in 1970. It looks like this was this data’s way of encoding <code>NA</code> for the date of fine (GDPR didn’t come into practice until 2018.)</p>
 <p>The other boxes only vary slightly. They all show Q1 above 1000, Q2 (median around 10000) and Q3 between 10000 and 100000. One notable exception is 2022 which is lower on the y axis.</p>
 <p>Looking at the number of data points per year it looks like 2022 had more GDPR fines than any other year.</p>
 <p>This report was conducted late in 2023. While this may explain why there are fewer points on the 2023 box, it still looks like there will be fewer fines than in previous years.</p>
@@ -665,7 +678,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </ul>
 <p>This is useful for direct comparison.</p>
 <p>The large companies (e.g.&nbsp;Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e.&nbsp;Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc.&nbsp;(Facebook), Meta Platforms Ireland Limited (Facebook), etc.)</p>
-<div id="b18e9e8d" class="cell" data-tags="[]" data-execution_count="10">
+<div id="421ee9c8" class="cell" data-tags="[]" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strfind(series, term):</span>
@@ -705,7 +718,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>controller_stats.sort_values(<span class="st">'total_price'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -799,7 +812,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <section id="who-pays-the-most" class="level4">
 <h4 class="anchored" data-anchor-id="who-pays-the-most">Who pays the most?</h4>
 <p>With the data in this form (each row being a single controller) and the variables relating to statistics on their fines, the controllers with the highest total amount in fines paid can be found easily. First by sorting the data based on <code>total_price</code>, then by visualising those totals for the top n rows. In this case <code>n = 10</code>.</p>
-<div id="691b9a17" class="cell" data-tags="[]" data-execution_count="11">
+<div id="cell-fig-controller-fine-amount-bar" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
@@ -817,9 +830,9 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -829,9 +842,14 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-12-output-1.png" width="657" height="453" class="figure-img"></p>
+<div id="fig-controller-fine-amount-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-controller-fine-amount-bar-output-1.png" width="691" height="412" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Total Fine Price Paid By Controller (10 Highest)
+</figcaption>
 </figure>
 </div>
 </div>
@@ -843,54 +861,60 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <h4 class="anchored" data-anchor-id="who-pays-the-most-often">Who Pays the Most Often?</h4>
 <p>From the collapsed controller statistics the number of recorded violations is immediately available for plotting too. This is the number of times each controller has been found in violation of one or more GDPR articles and has been fined.</p>
 <p>One note: some controller names don’t relate to companies or are uninformative (“Unknown Company”, “Not Available”). These have therefore been removed before plotting.</p>
-<div id="6fdb225c" class="cell" data-execution_count="12">
+<div id="cell-fig-controller-fine-counts-bar" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names are uninformative</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Unknown"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>]</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-13-output-1.png" width="657" height="453" class="figure-img"></p>
+<div id="fig-controller-fine-counts-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-controller-fine-counts-bar-output-1.png" width="691" height="412" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: Total Number Of Fines Paid By Controller (10 Highest)
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The plot shows that the most frequently-fined controller is “Private Individual”. Since this more likely relates to many different individuals, it’s also probably worth looking at the results without these non-specific identifiers. I.e. without terms like: “Private Individual”, “Company”, “Store Owner”, “Police Officer”, …</p>
-<div id="c27c8139" class="cell" data-execution_count="13">
+<div id="cell-fig-filtered-controller-fine-amount-bar" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names don't relate to specific companies or are uninformative</span></span>
@@ -919,9 +943,9 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
 <span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
 <span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
 <span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
 <span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -931,16 +955,21 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-14-output-1.png" width="667" height="453" class="figure-img"></p>
+<div id="fig-filtered-controller-fine-amount-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-filtered-controller-fine-amount-bar-output-1.png" width="691" height="412" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: Total Amount Paid By Controller (10 Highest) [Filtered]
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>This is a bit cleaner. It’s clear that apart from 3, controllers typically haven’t been fined more than 10 times. Vodafone are the surprise here, with over 80 incidences of GDPR violations.</p>
 <p>During the filtering the following were excluded but they are of interest that these ‘classes’ of organisation are often found in violation of GDPR. In descending order:</p>
-<div id="c6af7618" class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>INCLUDE <span class="op">=</span> [<span class="st">"Private Individual"</span>, <span class="st">"Company"</span>, <span class="st">"Homeowners Association"</span>, <span class="st">"Store Owner"</span>, <span class="st">"Police Officer"</span>, <span class="st">"Website Operator"</span>, <span class="st">"Bank"</span>, <span class="st">"Employer"</span>, <span class="st">"Physician"</span>, <span class="st">"Restaurant"</span>, <span class="st">"Retailer"</span>, <span class="st">"Covid-19 Test Center"</span>, <span class="st">"Private Person"</span>, <span class="st">"Political Party"</span>, <span class="st">"Telecommunication Service Provider"</span>]</span>
@@ -951,11 +980,17 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'counts'</span>,  ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div id="tbl-controller-class" class="cell anchored" data-execution_count="14">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-controller-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.4: Controller Statistics for Non-Specific Entities
+</figcaption>
+<div aria-describedby="tbl-controller-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe cell table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1077,12 +1112,15 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </div>
 </div>
 </div>
+</figure>
+</div>
+</div>
 </section>
 </section>
 <section id="article-references" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">2.1.3</span> Article References</h3>
 <p>At present, the clean fines data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It’s possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e.&nbsp;one row per article violation) the data will need to pivoted longer. After the data have been put into a longer format, each individual article can be counted using pandas <code>pd.DataFrame.value_counts()</code>.</p>
-<div id="e8371814" class="cell" data-execution_count="15">
+<div id="446abf72" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span>
@@ -1099,7 +1137,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <section id="which-articles-are-referenced-the-most-often" class="level4">
 <h4 class="anchored" data-anchor-id="which-articles-are-referenced-the-most-often">Which articles are referenced the most often?</h4>
 <p>There are over 50 different article numbers recorded. Looking at only articles refernced at least 30 times:</p>
-<div id="8340c5fe" class="cell" data-execution_count="16">
+<div id="cell-fig-article-references-bar" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
@@ -1121,71 +1159,89 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span>)</span>
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
 <span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
 <span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-17-output-1.png" width="657" height="453" class="figure-img"></p>
+<div id="fig-article-references-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-article-references-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-article-references-bar-output-1.png" width="691" height="412" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-article-references-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.6: Total References Made to Article (at least 30 occurences)
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>We can see from the barplot that articles 5, 6, 13, and 32 are the most frequently referrenced articles (all over 200 instances). With 5 being the most frequently referrenced article.</p>
+<p>We can see from the barplot that articles 5, 6, 13, and 32 are the most frequently referrenced articles (all over 200 instances). With 5 being the most frequently referrenced article (over 800 times alone)</p>
 </section>
 <section id="distribution-of-fine-price-per-article" class="level4">
 <h4 class="anchored" data-anchor-id="distribution-of-fine-price-per-article">Distribution of Fine Price per Article</h4>
-<div id="0d3ad341" class="cell" data-execution_count="17">
+<p>For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an violation instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at <span class="math inline">\(y = total_fine_euro\)</span>.</p>
+<p>Similar to <a href="#fig-distribution-by-year" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, it’s possible to compare the number of references per article since the points have been overlayed with a jitter effect.</p>
+<div id="cell-fig-fine-distribution-by-art" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>).merge(fines_long, how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>sns.stripplot(</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'black'</span>, jitter<span class="op">=</span><span class="fl">0.15</span>, size<span class="op">=</span><span class="fl">3.5</span>, alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    showfliers<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    boxprops<span class="op">=</span>{<span class="st">'facecolor'</span>:<span class="st">'none'</span>}</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">"Total Fine (€) [Logarithmic Scale]</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(big_currency)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    n_citations</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    .query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    .merge(fines_long, how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>sns.stripplot(</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'black'</span>, jitter<span class="op">=</span><span class="fl">0.15</span>, size<span class="op">=</span><span class="fl">3.5</span>, alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    showfliers<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    boxprops<span class="op">=</span>{<span class="st">'facecolor'</span>:<span class="st">'none'</span>}</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span>ax.get_position().ymax<span class="op">*</span><span class="fl">0.975</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">"Total Fine (€) [Logarithmic Scale]</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(big_currency)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
 <span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>ax.grid(visible<span class="op">=</span><span class="va">True</span>, axis<span class="op">=</span><span class="st">"both"</span>)</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().ymax<span class="op">*</span><span class="fl">0.975</span>)</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>ax.grid(visible<span class="op">=</span><span class="va">True</span>, axis<span class="op">=</span><span class="st">"both"</span>)</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_exploration_files/figure-html/cell-18-output-1.png" width="657" height="453" class="figure-img"></p>
+<div id="fig-fine-distribution-by-art" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fine-distribution-by-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="data_exploration_files/figure-html/fig-fine-distribution-by-art-output-1.png" width="691" height="412" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-fine-distribution-by-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.7: Fine Value by Article (for Articles with at least 30 occurences)
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>It’s not immediately clear that any particle article relates to an approximate increase or decrease in fine amount.</p>
+<p>There is perhaps some cause to suggest that the more infrequent article references sometimes correlate with a higher fine amount.</p>
 
 
 </section>
