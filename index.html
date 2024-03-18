@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setup" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="setup"><span class="header-section-number">2</span> Setup</h2>
-<div id="079f5de7" class="cell" data-execution_count="1">
+<div id="50d13511" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.1" class="anchored" data-anchor-id="data"><span class="header-section-number">2.1</span> Data</h3>
 <p>The data for this report is scraped from: <a href="https://www.privacyaffairs.com/gdpr-fines/">Privacy Affairs: GDPR Fines List</a>. The data is then transformed into a tabular format and written to <code>data/scraped_gdpr_fines.csv</code> This can be recreated by running:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python scripts<span class="op">/</span>scrape_gdpr_fines.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="44afdfdd" class="cell" data-execution_count="2">
+<div id="d30bee0d" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(</span>
@@ -301,25 +301,36 @@ Table&nbsp;2: GDPR Fines: Price Column Distribution
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">count</th>
 <th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">std</th>
 <th data-quarto-table-cell-role="th">min</th>
 <th data-quarto-table-cell-role="th">25%</th>
 <th data-quarto-table-cell-role="th">50%</th>
 <th data-quarto-table-cell-role="th">75%</th>
 <th data-quarto-table-cell-role="th">max</th>
+<th data-quarto-table-cell-role="th">std</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">price</td>
 <td>1701.0</td>
-<td>2.35e+06</td>
-<td>3.80e+07</td>
+<td>2352413.75</td>
 <td>0.0</td>
 <td>2000.0</td>
 <td>6000.0</td>
 <td>40000.0</td>
-<td>1.20e+09</td>
+<td>1200000000.0</td>
+<td>37951344.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">date</td>
+<td>1701</td>
+<td>2020-11-07 07:12:35.555555584</td>
+<td>1970-01-01 00:00:00</td>
+<td>2020-08-03 00:00:00</td>
+<td>2021-10-06 00:00:00</td>
+<td>2022-07-07 00:00:00</td>
+<td>2023-05-22 00:00:00</td>
+<td>NaN</td>
 </tr>
 </tbody>
 </table>
@@ -335,7 +346,7 @@ Table&nbsp;2: GDPR Fines: Price Column Distribution
 <li>remove fines with 0 price</li>
 <li>remove whitespace from type column</li>
 </ol>
-<div id="c07e256b" class="cell" data-execution_count="5">
+<div id="e0560022" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fines_nozero <span class="op">=</span> (</span>
@@ -374,25 +385,36 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">count</th>
 <th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">std</th>
 <th data-quarto-table-cell-role="th">min</th>
 <th data-quarto-table-cell-role="th">25%</th>
 <th data-quarto-table-cell-role="th">50%</th>
 <th data-quarto-table-cell-role="th">75%</th>
 <th data-quarto-table-cell-role="th">max</th>
+<th data-quarto-table-cell-role="th">std</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">price</td>
 <td>1617.0</td>
-<td>2.47e+06</td>
-<td>3.89e+07</td>
+<td>2474617.06</td>
 <td>28.0</td>
 <td>2000.0</td>
 <td>7000.0</td>
 <td>45000.0</td>
-<td>1.20e+09</td>
+<td>1200000000.0</td>
+<td>38921321.35</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">date</td>
+<td>1617</td>
+<td>2021-01-22 06:41:37.959183872</td>
+<td>1970-01-01 00:00:00</td>
+<td>2020-07-31 00:00:00</td>
+<td>2021-10-27 00:00:00</td>
+<td>2022-07-21 00:00:00</td>
+<td>2023-05-22 00:00:00</td>
+<td>NaN</td>
 </tr>
 </tbody>
 </table>
@@ -432,7 +454,7 @@ Table&nbsp;3: GDPR Fines: Price Column Distribution
 </ol>
 <section id="how-are-the-fines-distributed" class="level4">
 <h4 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h4>
-<div id="259eaa59" class="cell" data-execution_count="7">
+<div id="70b44314" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
@@ -611,7 +633,7 @@ Figure&nbsp;2: Yearly GDPR Fine Distribution
 </ul>
 <p>This is useful for direct comparison.</p>
 <p>The large companies (e.g.&nbsp;Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e.&nbsp;Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc.&nbsp;(Facebook), Meta Platforms Ireland Limited (Facebook), etc.)</p>
-<div id="b39670fd" class="cell" data-tags="[]" data-execution_count="10">
+<div id="219ec98e" class="cell" data-tags="[]" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strfind(series, term):</span>
@@ -651,6 +673,10 @@ Figure&nbsp;2: Yearly GDPR Fine Distribution
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>controller_stats.sort_values(<span class="st">'total_price'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/fl/wz6wtxrx4h92v4qxz9xxwsw40000gn/T/ipykernel_27103/3525280535.py:24: FutureWarning: Series.replace without 'value' and with non-dict-like 'to_replace' is deprecated and will raise in a future version. Explicitly specify the new values instead.
+  .assign(shortname = lambda x: x.shortname.str.title().str.strip().replace(""))</code></pre>
+</div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
@@ -748,37 +774,41 @@ Figure&nbsp;2: Yearly GDPR Fine Distribution
 <div id="cell-fig-controller-fine-amount-bar" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'total_price'</span>, data<span class="op">=</span>controller_stats.nlargest(TOP_N, columns<span class="op">=</span><span class="st">'total_price'</span>),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Total Amount Paid in Fines"</span>, ylabel<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(big_currency)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'total_price'</span>, data<span class="op">=</span>controller_stats.nlargest(TOP_N, columns<span class="op">=</span><span class="st">'total_price'</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Total Amount Paid in Fines"</span>, ylabel<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(big_currency)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(label<span class="op">=</span><span class="ss">f"Total Amount Paid in Fines Controllers (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/fl/wz6wtxrx4h92v4qxz9xxwsw40000gn/T/ipykernel_27103/3917755045.py:13: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax.set_yticklabels(map(f, ax.get_yticklabels()))</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-controller-fine-amount-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-controller-fine-amount-bar-output-1.png" width="778" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-controller-fine-amount-bar-output-2.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Total Fine Price Paid By Controller (10 Highest)
@@ -797,47 +827,51 @@ Figure&nbsp;3: Total Fine Price Paid By Controller (10 Highest)
 <div id="cell-fig-controller-fine-counts-bar" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names are uninformative</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Unknown"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>]</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names are uninformative</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Unknown"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/fl/wz6wtxrx4h92v4qxz9xxwsw40000gn/T/ipykernel_27103/3665227996.py:20: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax.set_yticklabels(map(f, ax.get_yticklabels()))</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-controller-fine-counts-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-controller-fine-counts-bar-output-1.png" width="778" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-controller-fine-counts-bar-output-2.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Total Number Of Fines Paid By Controller (10 Highest)
@@ -850,48 +884,52 @@ Figure&nbsp;4: Total Number Of Fines Paid By Controller (10 Highest)
 <div id="cell-fig-filtered-controller-fine-amount-bar" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names don't relate to specific companies or are uninformative</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Unknown"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>, <span class="st">"Not Disclosed"</span>, <span class="st">"Private Individual"</span>, <span class="st">"Company"</span>, <span class="st">"Homeowners Association"</span>, <span class="st">"Store Owner"</span>, <span class="st">"Police Officer"</span>, <span class="st">"Website Operator"</span>, <span class="st">"Bank"</span>, <span class="st">"Employer"</span>, <span class="st">"Physician"</span>, <span class="st">"Restaurant"</span>, <span class="st">"Retailer"</span>, <span class="st">"Covid-19 Test Center"</span>, <span class="st">"Private Person"</span>, <span class="st">".."</span>, <span class="st">"Political Party"</span>, <span class="st">"Telecommunication Service Provider"</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># some controller names don't relate to specific companies or are uninformative</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>DONT_INCLUDE <span class="op">=</span> [<span class="st">"Unknown"</span>, <span class="st">"Unknown Company"</span>, <span class="st">"Not Available"</span>, <span class="st">"Not Disclosed"</span>, <span class="st">"Private Individual"</span>, <span class="st">"Company"</span>, <span class="st">"Homeowners Association"</span>, <span class="st">"Store Owner"</span>, <span class="st">"Police Officer"</span>, <span class="st">"Website Operator"</span>, <span class="st">"Bank"</span>, <span class="st">"Employer"</span>, <span class="st">"Physician"</span>, <span class="st">"Restaurant"</span>, <span class="st">"Retailer"</span>, <span class="st">"Covid-19 Test Center"</span>, <span class="st">"Private Person"</span>, <span class="st">".."</span>, <span class="st">"Political Party"</span>, <span class="st">"Telecommunication Service Provider"</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>TOP_N <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'shortname'</span>, x<span class="op">=</span><span class="st">'counts'</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>controller_stats.query(<span class="ss">f'~shortname.isin(</span><span class="sc">{</span>DONT_INCLUDE<span class="sc">}</span><span class="ss">)'</span>).nlargest(n<span class="op">=</span>TOP_N, columns<span class="op">=</span><span class="st">'counts'</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'midnightblue'</span>, ax<span class="op">=</span>ax, orient<span class="op">=</span><span class="st">'h'</span>, alpha<span class="op">=</span><span class="fl">0.8</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">n Times Fined"</span>, ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, controller_stats.counts.<span class="bu">max</span>(), <span class="dv">10</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># wrap long labels</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: textwrap.fill(x.get_text(), <span class="dv">20</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(<span class="bu">map</span>(f, ax.get_yticklabels()))</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># title and subtitle</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="ss">f"Number of Times Each Controller has been Fined (Top </span><span class="sc">{</span>TOP_N<span class="sc">}</span><span class="ss">)"</span>, loc<span class="op">=</span><span class="st">"left"</span>, ha<span class="op">=</span><span class="st">"left"</span>, size<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    t<span class="op">=</span><span class="st">"Who Pays the Most Often?"</span>, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>ax.get_position().x0,</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/fl/wz6wtxrx4h92v4qxz9xxwsw40000gn/T/ipykernel_27103/3280653053.py:21: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax.set_yticklabels(map(f, ax.get_yticklabels()))</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-filtered-controller-fine-amount-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-filtered-controller-fine-amount-bar-output-1.png" width="778" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-filtered-controller-fine-amount-bar-output-2.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Total Amount Paid By Controller (10 Highest) [Filtered]
@@ -905,13 +943,13 @@ Figure&nbsp;5: Total Amount Paid By Controller (10 Highest) [Filtered]
 <div class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>INCLUDE <span class="op">=</span> [<span class="st">"Private Individual"</span>, <span class="st">"Company"</span>, <span class="st">"Homeowners Association"</span>, <span class="st">"Store Owner"</span>, <span class="st">"Police Officer"</span>, <span class="st">"Website Operator"</span>, <span class="st">"Bank"</span>, <span class="st">"Employer"</span>, <span class="st">"Physician"</span>, <span class="st">"Restaurant"</span>, <span class="st">"Retailer"</span>, <span class="st">"Covid-19 Test Center"</span>, <span class="st">"Private Person"</span>, <span class="st">"Political Party"</span>, <span class="st">"Telecommunication Service Provider"</span>]</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    controller_stats</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    .query(<span class="ss">f'shortname.isin(</span><span class="sc">{</span>INCLUDE<span class="sc">}</span><span class="ss">)'</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'counts'</span>,  ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>INCLUDE <span class="op">=</span> [<span class="st">"Private Individual"</span>, <span class="st">"Company"</span>, <span class="st">"Homeowners Association"</span>, <span class="st">"Store Owner"</span>, <span class="st">"Police Officer"</span>, <span class="st">"Website Operator"</span>, <span class="st">"Bank"</span>, <span class="st">"Employer"</span>, <span class="st">"Physician"</span>, <span class="st">"Restaurant"</span>, <span class="st">"Retailer"</span>, <span class="st">"Covid-19 Test Center"</span>, <span class="st">"Private Person"</span>, <span class="st">"Political Party"</span>, <span class="st">"Telecommunication Service Provider"</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    controller_stats</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    .query(<span class="ss">f'shortname.isin(</span><span class="sc">{</span>INCLUDE<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'counts'</span>,  ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-controller-class" class="cell anchored" data-execution_count="14">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1053,18 +1091,18 @@ Table&nbsp;4: Controller Statistics for Non-Specific Entities
 <section id="article-references" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">3.3</span> Article References</h3>
 <p>At present, the clean fines data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It’s possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e.&nbsp;one row per article violation) the data will need to pivoted longer. After the data have been put into a longer format, each individual article can be counted using pandas <code>pd.DataFrame.value_counts()</code>.</p>
-<div id="68b91588" class="cell" data-execution_count="15">
+<div id="1564240d" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df showing article next to how often it was referenced.</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>n_citations <span class="op">=</span> (</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    .value_counts(<span class="st">'article_number'</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'article_number'</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df showing article next to how often it was referenced.</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>n_citations <span class="op">=</span> (</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    .value_counts(<span class="st">'article_number'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'article_number'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="which-articles-are-referenced-the-most-often" class="level4">
@@ -1073,31 +1111,31 @@ Table&nbsp;4: Controller Statistics for Non-Specific Entities
 <div id="cell-fig-article-references-bar" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'count'</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    orient<span class="op">=</span><span class="st">'v'</span>, color<span class="op">=</span><span class="st">'grey'</span>, ax<span class="op">=</span>ax</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">'</span><span class="ch">\n</span><span class="st">Article Number'</span>,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">'Number of Associated Violations/Fines</span><span class="ch">\n</span><span class="st">'</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span>)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'count'</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    orient<span class="op">=</span><span class="st">'v'</span>, color<span class="op">=</span><span class="st">'grey'</span>, ax<span class="op">=</span>ax</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">'</span><span class="ch">\n</span><span class="st">Article Number'</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">'Number of Associated Violations/Fines</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Number of Fines by Article Number'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().y1<span class="op">*</span><span class="fl">0.975</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="fig-article-references-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
@@ -1121,44 +1159,44 @@ Figure&nbsp;6: Total References Made to Article (at least 30 occurences)
 <div id="cell-fig-fine-distribution-by-art" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    n_citations</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    .query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    .merge(fines_long, how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>sns.stripplot(</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'black'</span>, jitter<span class="op">=</span><span class="fl">0.15</span>, size<span class="op">=</span><span class="fl">3.5</span>, alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    showfliers<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    boxprops<span class="op">=</span>{<span class="st">'facecolor'</span>:<span class="st">'none'</span>}</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">"Total Fine (€) [Logarithmic Scale]</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(big_currency)</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().ymax<span class="op">*</span><span class="fl">0.975</span>)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>ax.grid(visible<span class="op">=</span><span class="va">True</span>, axis<span class="op">=</span><span class="st">"both"</span>)</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>MIN_OCCURENCES <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    n_citations</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    .query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    .merge(fines_long, how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>sns.stripplot(</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'black'</span>, jitter<span class="op">=</span><span class="fl">0.15</span>, size<span class="op">=</span><span class="fl">3.5</span>, alpha<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'article_number'</span>, y<span class="op">=</span><span class="st">'total_fine_euro'</span>, data<span class="op">=</span>df,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    showfliers<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    boxprops<span class="op">=</span>{<span class="st">'facecolor'</span>:<span class="st">'none'</span>}</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">Article Number"</span>, ylabel<span class="op">=</span><span class="st">"Total Fine (€) [Logarithmic Scale]</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(big_currency)</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>fig.canvas.draw()</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="co"># title + subtitle</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'At least than </span><span class="sc">{</span>MIN_OCCURENCES<span class="sc">}</span><span class="ss"> instances'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Distribution of Total Fine per Article</span><span class="ch">\'</span><span class="st">s inclusion'</span>, x<span class="op">=</span>ax.get_position().x0, ha<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, y<span class="op">=</span>ax.get_position().ymax<span class="op">*</span><span class="fl">0.975</span>)</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>ax.grid(visible<span class="op">=</span><span class="va">True</span>, axis<span class="op">=</span><span class="st">"both"</span>)</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="fig-fine-distribution-by-art" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
@@ -1182,44 +1220,44 @@ Figure&nbsp;7: Fine Value by Article (for Articles with at least 30 occurences)
 <h2 data-number="4" class="anchored" data-anchor-id="regression-analysis"><span class="header-section-number">4</span> Regression Analysis</h2>
 <section id="creating-a-dataset-for-modelling" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="creating-a-dataset-for-modelling"><span class="header-section-number">4.1</span> Creating a dataset for Modelling</h3>
-<div id="6e126e0f" class="cell" data-tags="[]" data-execution_count="18">
+<div id="aa50c2e6" class="cell" data-tags="[]" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>MIN_CITATIONS <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>INTEREST_VARS <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'article_number'</span>]</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot data</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gdpr_model_data <span class="op">=</span> (</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note we're starting with fines_long here</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        violated        <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        total_fine_euro <span class="op">=</span> <span class="kw">lambda</span> x: np.log10(x.total_fine_euro),</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        year            <span class="op">=</span> <span class="kw">lambda</span> x: x.date.dt.year</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    .merge(</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_CITATIONS<span class="sc">}</span><span class="ss">'</span>),</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    .pivot_table(values<span class="op">=</span>[<span class="st">'violated'</span>], index<span class="op">=</span>[<span class="st">'id'</span>, <span class="st">'total_fine_euro'</span>] <span class="op">+</span> INTEREST_VARS)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    .unstack(level<span class="op">=-</span><span class="dv">1</span>, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># sort out indexing / columns</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> gdpr_model_data.columns.droplevel(<span class="dv">0</span>)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns.name <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> [<span class="st">'A'</span> <span class="op">+</span> <span class="bu">str</span>(col) <span class="cf">for</span> col <span class="kw">in</span> gdpr_model_data.columns]</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MIN_CITATIONS <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>INTEREST_VARS <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'article_number'</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot data</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>gdpr_model_data <span class="op">=</span> (</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note we're starting with fines_long here</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        violated        <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        total_fine_euro <span class="op">=</span> <span class="kw">lambda</span> x: np.log10(x.total_fine_euro),</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        year            <span class="op">=</span> <span class="kw">lambda</span> x: x.date.dt.year</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    .merge(</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_CITATIONS<span class="sc">}</span><span class="ss">'</span>),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    .pivot_table(values<span class="op">=</span>[<span class="st">'violated'</span>], index<span class="op">=</span>[<span class="st">'id'</span>, <span class="st">'total_fine_euro'</span>] <span class="op">+</span> INTEREST_VARS)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    .unstack(level<span class="op">=-</span><span class="dv">1</span>, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co"># sort out indexing / columns</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> gdpr_model_data.columns.droplevel(<span class="dv">0</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns.name <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> [<span class="st">'A'</span> <span class="op">+</span> <span class="bu">str</span>(col) <span class="cf">for</span> col <span class="kw">in</span> gdpr_model_data.columns]</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="e5859b0f" class="cell" data-tags="[]" data-execution_count="19">
+<div id="285e829b" class="cell" data-tags="[]" data-execution_count="19">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gdpr_model_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gdpr_model_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
@@ -1258,120 +1296,120 @@ Figure&nbsp;7: Fine Value by Article (for Articles with at least 30 occurences)
 <td>1</td>
 <td>3.972203</td>
 <td>2019</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>2</td>
 <td>3.397940</td>
 <td>2019</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>3</td>
 <td>4.778151</td>
 <td>2019</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>4</td>
 <td>3.903090</td>
 <td>2019</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>5</td>
 <td>5.176091</td>
 <td>2019</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1402,120 +1440,120 @@ Figure&nbsp;7: Fine Value by Article (for Articles with at least 30 occurences)
 <td>1696</td>
 <td>4.095169</td>
 <td>2022</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1560</td>
 <td>1698</td>
 <td>3.301030</td>
 <td>2020</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1561</td>
 <td>1699</td>
 <td>3.397940</td>
 <td>2020</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1562</td>
 <td>1700</td>
 <td>4.301030</td>
 <td>2020</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1563</td>
 <td>1701</td>
 <td>3.602060</td>
 <td>2020</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
 <td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 </tbody>
 </table>
@@ -1528,60 +1566,60 @@ Figure&nbsp;7: Fine Value by Article (for Articles with at least 30 occurences)
 <section id="regressing-article-on-total-fine-price" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="regressing-article-on-total-fine-price"><span class="header-section-number">4.2</span> Regressing Article on Total Fine Price</h3>
 <p>With the data in an appropriate form, regression can be performed.</p>
-<div id="185ee87d" class="cell" data-tags="[]" data-execution_count="20">
+<div id="de38ad17" class="cell" data-tags="[]" data-execution_count="20">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> gdpr_model_data.drop(columns<span class="op">=</span>[<span class="st">"id"</span>, <span class="st">"total_fine_euro"</span>])</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> gdpr_model_data.total_fine_euro</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.OLS(y, X.assign(constant<span class="op">=</span><span class="dv">1</span>).astype(<span class="st">'float'</span>))</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> mod.fit()</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> pd.concat([res.params, res.conf_int()], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>coefs.columns <span class="op">=</span> [<span class="st">'estimate'</span>, <span class="st">'ci0'</span>, <span class="st">'ci1'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> gdpr_model_data.drop(columns<span class="op">=</span>[<span class="st">"id"</span>, <span class="st">"total_fine_euro"</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> gdpr_model_data.total_fine_euro</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.OLS(y, X.assign(constant<span class="op">=</span><span class="dv">1</span>).astype(<span class="st">'float'</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> mod.fit()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> pd.concat([res.params, res.conf_int()], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>coefs.columns <span class="op">=</span> [<span class="st">'estimate'</span>, <span class="st">'ci0'</span>, <span class="st">'ci1'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-fig-coefplot" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a nice coeficient table for plotting</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>coefTable <span class="op">=</span> (</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    coefs</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    .reset_index(names<span class="op">=</span><span class="st">'coef'</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        ci_length <span class="op">=</span> <span class="kw">lambda</span> x: x.ci1 <span class="op">-</span> x.estimate,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        hits0     <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">0</span> <span class="op">&gt;</span> x.ci0) <span class="op">&amp;</span> (<span class="dv">0</span> <span class="op">&lt;</span> x.ci1)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    .loc[<span class="kw">lambda</span> x: x.coef <span class="op">!=</span> <span class="st">'constant'</span>, [<span class="st">'coef'</span>, <span class="st">'estimate'</span>, <span class="st">'ci_length'</span>, <span class="st">'hits0'</span>]]</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'True'</span>: <span class="st">'indianred'</span>, <span class="st">'False'</span>: <span class="st">'steelblue'</span>}</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span>(<span class="dv">0</span>, (<span class="dv">1</span>, <span class="dv">1</span>)))</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Coefficient Estimate"</span>,</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span>coefTable.index, xticklabels<span class="op">=</span>coefTable.coef</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit_type <span class="kw">in</span> np.unique(coefTable.hits0):</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colors[<span class="bu">str</span>(hit_type)]</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    df_subset <span class="op">=</span> coefTable.query(<span class="ss">f'hits0 == </span><span class="sc">{</span>hit_type<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    ax.errorbar(</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        df_subset.index, df_subset.estimate, yerr<span class="op">=</span>df_subset.ci_length,</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>        marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span>color, ls<span class="op">=</span><span class="st">''</span>, ms<span class="op">=</span><span class="dv">5</span>, capsize<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span>hit_type</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="co"># title</span></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Regression Coefficient Estimates</span><span class="ch">\n</span><span class="ss">'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a nice coeficient table for plotting</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>coefTable <span class="op">=</span> (</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    coefs</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    .reset_index(names<span class="op">=</span><span class="st">'coef'</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        ci_length <span class="op">=</span> <span class="kw">lambda</span> x: x.ci1 <span class="op">-</span> x.estimate,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        hits0     <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">0</span> <span class="op">&gt;</span> x.ci0) <span class="op">&amp;</span> (<span class="dv">0</span> <span class="op">&lt;</span> x.ci1)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    .loc[<span class="kw">lambda</span> x: x.coef <span class="op">!=</span> <span class="st">'constant'</span>, [<span class="st">'coef'</span>, <span class="st">'estimate'</span>, <span class="st">'ci_length'</span>, <span class="st">'hits0'</span>]]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'True'</span>: <span class="st">'indianred'</span>, <span class="st">'False'</span>: <span class="st">'steelblue'</span>}</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span>(<span class="dv">0</span>, (<span class="dv">1</span>, <span class="dv">1</span>)))</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Coefficient Estimate"</span>,</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span>coefTable.index, xticklabels<span class="op">=</span>coefTable.coef</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit_type <span class="kw">in</span> np.unique(coefTable.hits0):</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colors[<span class="bu">str</span>(hit_type)]</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    df_subset <span class="op">=</span> coefTable.query(<span class="ss">f'hits0 == </span><span class="sc">{</span>hit_type<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    ax.errorbar(</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>        df_subset.index, df_subset.estimate, yerr<span class="op">=</span>df_subset.ci_length,</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>        marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span>color, ls<span class="op">=</span><span class="st">''</span>, ms<span class="op">=</span><span class="dv">5</span>, capsize<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span>hit_type</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="co"># title</span></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Regression Coefficient Estimates</span><span class="ch">\n</span><span class="ss">'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="fig-coefplot" class="quarto-figure quarto-figure-left anchored" width="778" height="422">
