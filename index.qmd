@@ -6,7 +6,7 @@ format:
   html: 
     code-fold: true
     toc: true
-7    number-sections: true
+    number-sections: true
     number-depth: 3
     css: styles.css
     fig-align: "left"
@@ -80,7 +80,7 @@ with pd.option_context("display.precision", 2):
     display(
         fines
         .drop(columns='id')
-        .describe()
+        .describe(include=[np.number])
         .transpose()
         )
 ```
@@ -109,7 +109,7 @@ with pd.option_context("display.precision", 2):
     display(
         fines_nozero
         .drop(columns='id')
-        .describe()
+        .describe(include=[np.number])
         .transpose()
         )
 ```
@@ -342,7 +342,13 @@ controller_stats = (
     .reset_index()
 )
 
-controller_stats.sort_values('total_price', ascending=False).head(10)
+with pd.option_context(
+    "display.float_format", '{:,.2f}'.format):
+    display(
+        controller_stats
+        .sort_values('total_price', ascending=False)
+        .head(10)
+    )
 ```
 
 
@@ -436,16 +442,6 @@ plt.show()
 
 
 The plot shows that the most frequently-fined controller is "Private Individual". Since this more likely relates to many different individuals, it's also probably worth looking at the results without these non-specific identifiers. I.e. without terms like: "Private Individual", "Company", "Store Owner", "Police Officer", ...
-
-```{python}
-def wrap_labels(ax, width, break_long_words=False):
-    labels = []
-    for label in ax.get_yticklabels():
-        text = label.get_text()
-        labels.append(textwrap.fill(text, width=width,
-                      break_long_words=break_long_words))
-    ax.set_yticklabels(labels, rotation=0)
-```
 
 
 ```{python}
