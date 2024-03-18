@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="David Currie">
+<meta name="dcterms.date" content="2023-11-27">
 
-<title>GDPR Fines Regression Analysis - 2&nbsp; GDPR Fines Data Exploration</title>
+<title>GDPR Fines Regression Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,50 +59,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../dev.html" rel="next">
-<link href="../index.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -108,95 +76,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body>
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/data_exploration.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">GDPR Fines Regression Analysis</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/data_exploration.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../dev.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regression Analysis</span></span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">2.0.1</span> Setup</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">2.0.2</span> Data</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">2.1</span> Questions</a>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">2</span> Setup</a>
   <ul class="collapse">
-  <li><a href="#fine-value" id="toc-fine-value" class="nav-link" data-scroll-target="#fine-value"><span class="header-section-number">2.1.1</span> Fine Value</a></li>
-  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">2.1.2</span> Controllers</a></li>
-  <li><a href="#article-references" id="toc-article-references" class="nav-link" data-scroll-target="#article-references"><span class="header-section-number">2.1.3</span> Article References</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">2.1</span> Data</a></li>
+  </ul></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration"><span class="header-section-number">3</span> Data Exploration</a>
+  <ul class="collapse">
+  <li><a href="#fine-value" id="toc-fine-value" class="nav-link" data-scroll-target="#fine-value"><span class="header-section-number">3.1</span> Fine Value</a></li>
+  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">3.2</span> Controllers</a></li>
+  <li><a href="#article-references" id="toc-article-references" class="nav-link" data-scroll-target="#article-references"><span class="header-section-number">3.3</span> Article References</a></li>
+  </ul></li>
+  <li><a href="#regression-analysis" id="toc-regression-analysis" class="nav-link" data-scroll-target="#regression-analysis"><span class="header-section-number">4</span> Regression Analysis</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-dataset-for-modelling" id="toc-creating-a-dataset-for-modelling" class="nav-link" data-scroll-target="#creating-a-dataset-for-modelling"><span class="header-section-number">4.1</span> Creating a dataset for Modelling</a></li>
+  <li><a href="#regressing-article-on-total-fine-price" id="toc-regressing-article-on-total-fine-price" class="nav-link" data-scroll-target="#regressing-article-on-total-fine-price"><span class="header-section-number">4.2</span> Regressing Article on Total Fine Price</a></li>
   </ul></li>
   </ul>
 </nav>
-    </div>
-<!-- main -->
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">GDPR Fines Data Exploration</span></h1>
+<h1 class="title">GDPR Fines Regression Analysis</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Currie </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 27, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -206,10 +139,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="background" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
 <p>This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR <a href="https://gdpr-info.eu/">(General Data Protection Regulation)</a>, which aims to protect the information of European Union citizens, took affect in May 2018.</p>
-<section id="setup" class="level3" data-number="2.0.1">
-<h3 data-number="2.0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.0.1</span> Setup</h3>
-<div id="978fc55e" class="cell" data-execution_count="1">
+</section>
+<section id="setup" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="setup"><span class="header-section-number">2</span> Setup</h2>
+<div id="079f5de7" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -218,28 +154,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> textwrap</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># grab functions from script files. we're in a subdirectory so...</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="vs">r"../"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># helper functions</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scripts.wrangling_funs <span class="im">import</span> filter_for_positives, strip_text_col, pivot_fines_longer, replace_accent_characters</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># helper functions</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scripts.wrangling_funs <span class="im">import</span> filter_for_positives, strip_text_col, pivot_fines_longer, replace_accent_characters</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot styles</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> params.plt_params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot styles</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> params.plt_params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="data" class="level3" data-number="2.0.2">
-<h3 data-number="2.0.2" class="anchored" data-anchor-id="data"><span class="header-section-number">2.0.2</span> Data</h3>
+<section id="data" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="data"><span class="header-section-number">2.1</span> Data</h3>
 <p>The data for this report is scraped from: <a href="https://www.privacyaffairs.com/gdpr-fines/">Privacy Affairs: GDPR Fines List</a>. The data is then transformed into a tabular format and written to <code>data/scraped_gdpr_fines.csv</code> This can be recreated by running:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python scripts<span class="op">/</span>scrape_gdpr_fines.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="17a18680" class="cell" data-execution_count="2">
+<div id="44afdfdd" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fines <span class="op">=</span> pd.read_csv(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../data/scraped_fines.csv"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data/scraped_fines.csv"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span>[<span class="st">"date"</span>]</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -259,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tbl-data-info-cols" class="cell anchored" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-info-cols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2.1: GDPR Fines: Informative Columns
+Table&nbsp;1: GDPR Fines: Informative Columns
 </figcaption>
 <div aria-describedby="tbl-data-info-cols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -356,7 +288,7 @@ Table&nbsp;2.1: GDPR Fines: Informative Columns
 <div id="tbl-data-price-col" class="cell anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-price-col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2.2: GDPR Fines: Price Column Distribution
+Table&nbsp;2: GDPR Fines: Price Column Distribution
 </figcaption>
 <div aria-describedby="tbl-data-price-col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -398,12 +330,12 @@ Table&nbsp;2.2: GDPR Fines: Price Column Distribution
 </figure>
 </div>
 </div>
-<p>The minumum value of fines is 0. This seems incorrect (and worth investigating!) but with the assumption that fines should fall in the range <span class="math inline">\(0 \gt \textrm{fine amount} \gt \infty\)</span>. Before performing analysis a minor amount of cleaning is required for the ‘raw’ data</p>
+<p>The minumum value of fines is 0. This seems incorrect (and worth investigating!) but with the assumption that fines should fall in the range <span class="math inline">\(0 \lt \textrm{fine amount} \lt \infty\)</span>. Before performing analysis a minor amount of cleaning is required for the ‘raw’ data</p>
 <ol type="1">
 <li>remove fines with 0 price</li>
 <li>remove whitespace from type column</li>
 </ol>
-<div id="2f8f8bbd" class="cell" data-execution_count="5">
+<div id="c07e256b" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fines_nozero <span class="op">=</span> (</span>
@@ -429,7 +361,7 @@ Table&nbsp;2.2: GDPR Fines: Price Column Distribution
 <div id="tbl-data-price-col2" class="cell anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-data-price-col2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2.3: GDPR Fines: Price Column Distribution
+Table&nbsp;3: GDPR Fines: Price Column Distribution
 </figcaption>
 <div aria-describedby="tbl-data-price-col2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -472,8 +404,9 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </div>
 </div>
 </section>
-<section id="questions" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">2.1</span> Questions</h2>
+</section>
+<section id="data-exploration" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="data-exploration"><span class="header-section-number">3</span> Data Exploration</h2>
 <p>Through visualisation the following questions will be explored. This is with the goal of understanding: The financial penalty (fine amount), poor data controllers, particular articles.</p>
 <p><strong>On the Fine Amount: </strong></p>
 <ol type="1">
@@ -490,8 +423,8 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <li>Which articles are referenced the most often</li>
 <li>What is the distribution of fine amounts where that article is referenced?</li>
 </ol>
-<section id="fine-value" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="fine-value"><span class="header-section-number">2.1.1</span> Fine Value</h3>
+<section id="fine-value" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="fine-value"><span class="header-section-number">3.1</span> Fine Value</h3>
 <p>Questions on the fine amount:</p>
 <ol type="1">
 <li>How are the fine amounts distributed?</li>
@@ -499,7 +432,7 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 </ol>
 <section id="how-are-the-fines-distributed" class="level4">
 <h4 class="anchored" data-anchor-id="how-are-the-fines-distributed">How are the fines distributed?</h4>
-<div id="f5acf185" class="cell" data-execution_count="7">
+<div id="259eaa59" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> big_currency(x, pos):</span>
@@ -546,20 +479,20 @@ Table&nbsp;2.3: GDPR Fines: Price Column Distribution
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-fine-distribution" class="quarto-figure quarto-figure-center anchored" height="432" width="692">
+<div id="fig-fine-distribution" class="quarto-figure quarto-figure-left anchored" width="776" height="432">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fine-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-fine-distribution-output-1.png" width="692" height="432" class="figure-img">
+<img src="index_files/figure-html/fig-fine-distribution-output-1.png" width="776" height="432" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-fine-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: GDPR Fine Distribution
+Figure&nbsp;1: GDPR Fine Distribution
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>By visualising the distribution of fines as a simple histogram it was immediately clear there was a large degree of right-skew. This is typical with financial data. Because of the high right-skew, the decision was made to visualise the data on a logarithmic scale.</p>
-<p><a href="#tbl-data-price-col2" class="quarto-xref">Table&nbsp;<span>2.3</span></a> shows the five figure summary of the price column. Fine value ranges from 28 to 1,200,000,000.</p>
+<p><a href="#tbl-data-price-col2" class="quarto-xref">Table&nbsp;3</a> shows the five figure summary of the price column. Fine value ranges from 28 to 1,200,000,000.</p>
 <p>Most of the fines fall between 1000 and 100,000 Euros.</p>
 </section>
 <section id="how-does-the-distribution-of-fines-change-over-time" class="level4">
@@ -644,13 +577,13 @@ Figure&nbsp;2.1: GDPR Fine Distribution
 <span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-distribution-by-year" class="quarto-figure quarto-figure-center anchored" height="429" width="692">
+<div id="fig-distribution-by-year" class="quarto-figure quarto-figure-left anchored" width="776" height="429">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-distribution-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-distribution-by-year-output-1.png" width="692" height="429" class="figure-img">
+<img src="index_files/figure-html/fig-distribution-by-year-output-1.png" width="776" height="429" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-distribution-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: Yearly GDPR Fine Distribution
+Figure&nbsp;2: Yearly GDPR Fine Distribution
 </figcaption>
 </figure>
 </div>
@@ -663,8 +596,8 @@ Figure&nbsp;2.2: Yearly GDPR Fine Distribution
 <p>It doesn’t look as if there is a clear trend in the distribution of fines.</p>
 </section>
 </section>
-<section id="controllers" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="controllers"><span class="header-section-number">2.1.2</span> Controllers</h3>
+<section id="controllers" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="controllers"><span class="header-section-number">3.2</span> Controllers</h3>
 <ol type="1">
 <li>Who pays the most?</li>
 <li>Who pays the most often?</li>
@@ -678,7 +611,7 @@ Figure&nbsp;2.2: Yearly GDPR Fine Distribution
 </ul>
 <p>This is useful for direct comparison.</p>
 <p>The large companies (e.g.&nbsp;Meta, Amazon) often have multiple different controller names. For simplicity in communication these have been combined (i.e.&nbsp;Meta/Facebook refers to any controller regarding Meta/Facebook: Meta Platforms Inc.&nbsp;(Facebook), Meta Platforms Ireland Limited (Facebook), etc.)</p>
-<div id="421ee9c8" class="cell" data-tags="[]" data-execution_count="10">
+<div id="b39670fd" class="cell" data-tags="[]" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strfind(series, term):</span>
@@ -842,13 +775,13 @@ Figure&nbsp;2.2: Yearly GDPR Fine Distribution
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-controller-fine-amount-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<div id="fig-controller-fine-amount-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-controller-fine-amount-bar-output-1.png" width="691" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-controller-fine-amount-bar-output-1.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: Total Fine Price Paid By Controller (10 Highest)
+Figure&nbsp;3: Total Fine Price Paid By Controller (10 Highest)
 </figcaption>
 </figure>
 </div>
@@ -901,13 +834,13 @@ Figure&nbsp;2.3: Total Fine Price Paid By Controller (10 Highest)
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-controller-fine-counts-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<div id="fig-controller-fine-counts-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-controller-fine-counts-bar-output-1.png" width="691" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-controller-fine-counts-bar-output-1.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-controller-fine-counts-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.4: Total Number Of Fines Paid By Controller (10 Highest)
+Figure&nbsp;4: Total Number Of Fines Paid By Controller (10 Highest)
 </figcaption>
 </figure>
 </div>
@@ -955,13 +888,13 @@ Figure&nbsp;2.4: Total Number Of Fines Paid By Controller (10 Highest)
 <span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-filtered-controller-fine-amount-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<div id="fig-filtered-controller-fine-amount-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-filtered-controller-fine-amount-bar-output-1.png" width="691" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-filtered-controller-fine-amount-bar-output-1.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-filtered-controller-fine-amount-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.5: Total Amount Paid By Controller (10 Highest) [Filtered]
+Figure&nbsp;5: Total Amount Paid By Controller (10 Highest) [Filtered]
 </figcaption>
 </figure>
 </div>
@@ -983,7 +916,7 @@ Figure&nbsp;2.5: Total Amount Paid By Controller (10 Highest) [Filtered]
 <div id="tbl-controller-class" class="cell anchored" data-execution_count="14">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-controller-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2.4: Controller Statistics for Non-Specific Entities
+Table&nbsp;4: Controller Statistics for Non-Specific Entities
 </figcaption>
 <div aria-describedby="tbl-controller-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -1117,10 +1050,10 @@ Table&nbsp;2.4: Controller Statistics for Non-Specific Entities
 </div>
 </section>
 </section>
-<section id="article-references" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">2.1.3</span> Article References</h3>
+<section id="article-references" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="article-references"><span class="header-section-number">3.3</span> Article References</h3>
 <p>At present, the clean fines data is structured such that each row represents a single instance of an entity being fined in violation of one or more GDPR articles. It’s possible for a single fine to be in reference to multiple articles being violated. To look at specific article violations (i.e.&nbsp;one row per article violation) the data will need to pivoted longer. After the data have been put into a longer format, each individual article can be counted using pandas <code>pd.DataFrame.value_counts()</code>.</p>
-<div id="446abf72" class="cell" data-execution_count="15">
+<div id="68b91588" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fines_long <span class="op">=</span> pivot_fines_longer(fines_nozero)</span>
@@ -1167,13 +1100,13 @@ Table&nbsp;2.4: Controller Statistics for Non-Specific Entities
 <span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-article-references-bar" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<div id="fig-article-references-bar" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-article-references-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-article-references-bar-output-1.png" width="691" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-article-references-bar-output-1.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-article-references-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.6: Total References Made to Article (at least 30 occurences)
+Figure&nbsp;6: Total References Made to Article (at least 30 occurences)
 </figcaption>
 </figure>
 </div>
@@ -1183,8 +1116,8 @@ Figure&nbsp;2.6: Total References Made to Article (at least 30 occurences)
 </section>
 <section id="distribution-of-fine-price-per-article" class="level4">
 <h4 class="anchored" data-anchor-id="distribution-of-fine-price-per-article">Distribution of Fine Price per Article</h4>
-<p>For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an violation instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at <span class="math inline">\(y = total_fine_euro\)</span>.</p>
-<p>Similar to <a href="#fig-distribution-by-year" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, it’s possible to compare the number of references per article since the points have been overlayed with a jitter effect.</p>
+<p>For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an violation instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at <span class="math inline">\(y = \textrm{total_fine_euro}\)</span>.</p>
+<p>Similar to <a href="#fig-distribution-by-year" class="quarto-xref">Figure&nbsp;2</a>, it’s possible to compare the number of references per article since the points have been overlayed with a jitter effect.</p>
 <div id="cell-fig-fine-distribution-by-art" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1228,13 +1161,13 @@ Figure&nbsp;2.6: Total References Made to Article (at least 30 occurences)
 <span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-fine-distribution-by-art" class="quarto-figure quarto-figure-center anchored" height="412" width="691">
+<div id="fig-fine-distribution-by-art" class="quarto-figure quarto-figure-left anchored" width="778" height="412">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fine-distribution-by-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="data_exploration_files/figure-html/fig-fine-distribution-by-art-output-1.png" width="691" height="412" class="figure-img">
+<img src="index_files/figure-html/fig-fine-distribution-by-art-output-1.png" width="778" height="412" class="figure-img">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-fine-distribution-by-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.7: Fine Value by Article (for Articles with at least 30 occurences)
+Figure&nbsp;7: Fine Value by Article (for Articles with at least 30 occurences)
 </figcaption>
 </figure>
 </div>
@@ -1242,13 +1175,432 @@ Figure&nbsp;2.7: Fine Value by Article (for Articles with at least 30 occurences
 </div>
 <p>It’s not immediately clear that any particle article relates to an approximate increase or decrease in fine amount.</p>
 <p>There is perhaps some cause to suggest that the more infrequent article references sometimes correlate with a higher fine amount.</p>
-
-
 </section>
 </section>
 </section>
+<section id="regression-analysis" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="regression-analysis"><span class="header-section-number">4</span> Regression Analysis</h2>
+<section id="creating-a-dataset-for-modelling" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="creating-a-dataset-for-modelling"><span class="header-section-number">4.1</span> Creating a dataset for Modelling</h3>
+<div id="6e126e0f" class="cell" data-tags="[]" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>MIN_CITATIONS <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>INTEREST_VARS <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'article_number'</span>]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot data</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gdpr_model_data <span class="op">=</span> (</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note we're starting with fines_long here</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    fines_long</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        violated        <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        total_fine_euro <span class="op">=</span> <span class="kw">lambda</span> x: np.log10(x.total_fine_euro),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        year            <span class="op">=</span> <span class="kw">lambda</span> x: x.date.dt.year</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    .merge(</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        n_citations.query(<span class="ss">f'count &gt;= </span><span class="sc">{</span>MIN_CITATIONS<span class="sc">}</span><span class="ss">'</span>),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">'inner'</span>, left_on<span class="op">=</span><span class="st">'article_number'</span>, right_on<span class="op">=</span><span class="st">'article_number'</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    .pivot_table(values<span class="op">=</span>[<span class="st">'violated'</span>], index<span class="op">=</span>[<span class="st">'id'</span>, <span class="st">'total_fine_euro'</span>] <span class="op">+</span> INTEREST_VARS)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    .unstack(level<span class="op">=-</span><span class="dv">1</span>, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># sort out indexing / columns</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> gdpr_model_data.columns.droplevel(<span class="dv">0</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns.name <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.columns <span class="op">=</span> [<span class="st">'A'</span> <span class="op">+</span> <span class="bu">str</span>(col) <span class="cf">for</span> col <span class="kw">in</span> gdpr_model_data.columns]</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>gdpr_model_data.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="e5859b0f" class="cell" data-tags="[]" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gdpr_model_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
 
-</main> <!-- /main -->
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">total_fine_euro</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">A2</th>
+<th data-quarto-table-cell-role="th">A5</th>
+<th data-quarto-table-cell-role="th">A6</th>
+<th data-quarto-table-cell-role="th">A7</th>
+<th data-quarto-table-cell-role="th">A9</th>
+<th data-quarto-table-cell-role="th">A12</th>
+<th data-quarto-table-cell-role="th">A13</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">A17</th>
+<th data-quarto-table-cell-role="th">A21</th>
+<th data-quarto-table-cell-role="th">A24</th>
+<th data-quarto-table-cell-role="th">A25</th>
+<th data-quarto-table-cell-role="th">A28</th>
+<th data-quarto-table-cell-role="th">A31</th>
+<th data-quarto-table-cell-role="th">A32</th>
+<th data-quarto-table-cell-role="th">A33</th>
+<th data-quarto-table-cell-role="th">A35</th>
+<th data-quarto-table-cell-role="th">A58</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>3.972203</td>
+<td>2019</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>3.397940</td>
+<td>2019</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>4.778151</td>
+<td>2019</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>3.903090</td>
+<td>2019</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>5.176091</td>
+<td>2019</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1559</td>
+<td>1696</td>
+<td>4.095169</td>
+<td>2022</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1560</td>
+<td>1698</td>
+<td>3.301030</td>
+<td>2020</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1561</td>
+<td>1699</td>
+<td>3.397940</td>
+<td>2020</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1562</td>
+<td>1700</td>
+<td>4.301030</td>
+<td>2020</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1563</td>
+<td>1701</td>
+<td>3.602060</td>
+<td>2020</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>1564 rows × 22 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="regressing-article-on-total-fine-price" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="regressing-article-on-total-fine-price"><span class="header-section-number">4.2</span> Regressing Article on Total Fine Price</h3>
+<p>With the data in an appropriate form, regression can be performed.</p>
+<div id="185ee87d" class="cell" data-tags="[]" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> gdpr_model_data.drop(columns<span class="op">=</span>[<span class="st">"id"</span>, <span class="st">"total_fine_euro"</span>])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> gdpr_model_data.total_fine_euro</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> sm.OLS(y, X.assign(constant<span class="op">=</span><span class="dv">1</span>).astype(<span class="st">'float'</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> mod.fit()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> pd.concat([res.params, res.conf_int()], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>coefs.columns <span class="op">=</span> [<span class="st">'estimate'</span>, <span class="st">'ci0'</span>, <span class="st">'ci1'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-fig-coefplot" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a nice coeficient table for plotting</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>coefTable <span class="op">=</span> (</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    coefs</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    .reset_index(names<span class="op">=</span><span class="st">'coef'</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        ci_length <span class="op">=</span> <span class="kw">lambda</span> x: x.ci1 <span class="op">-</span> x.estimate,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        hits0     <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">0</span> <span class="op">&gt;</span> x.ci0) <span class="op">&amp;</span> (<span class="dv">0</span> <span class="op">&lt;</span> x.ci1)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    .loc[<span class="kw">lambda</span> x: x.coef <span class="op">!=</span> <span class="st">'constant'</span>, [<span class="st">'coef'</span>, <span class="st">'estimate'</span>, <span class="st">'ci_length'</span>, <span class="st">'hits0'</span>]]</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'True'</span>: <span class="st">'indianred'</span>, <span class="st">'False'</span>: <span class="st">'steelblue'</span>}</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span>(<span class="dv">0</span>, (<span class="dv">1</span>, <span class="dv">1</span>)))</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Coefficient Estimate"</span>,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    xticks<span class="op">=</span>coefTable.index, xticklabels<span class="op">=</span>coefTable.coef</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit_type <span class="kw">in</span> np.unique(coefTable.hits0):</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colors[<span class="bu">str</span>(hit_type)]</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    df_subset <span class="op">=</span> coefTable.query(<span class="ss">f'hits0 == </span><span class="sc">{</span>hit_type<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    ax.errorbar(</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        df_subset.index, df_subset.estimate, yerr<span class="op">=</span>df_subset.ci_length,</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>        marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span>color, ls<span class="op">=</span><span class="st">''</span>, ms<span class="op">=</span><span class="dv">5</span>, capsize<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span>hit_type</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="co"># title</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Regression Coefficient Estimates</span><span class="ch">\n</span><span class="ss">'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>fig.patch.set_linewidth(<span class="dv">1</span>)</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>fig.patch.set_edgecolor(<span class="st">"black"</span>)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-coefplot" class="quarto-figure quarto-figure-left anchored" width="778" height="422">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coefplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-coefplot-output-1.png" width="778" height="422" class="figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-coefplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Coefficient Estimate Plot
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1646,18 +1998,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../dev.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Regression Analysis</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regression Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

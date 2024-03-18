@@ -1,8 +1,6 @@
+ ---
+title: Data Exploration
 ---
-title: GDPR Fines Data Exploration
----
-
-This report was produced in Nov 2023 and focusses on exploratory analysis of GDPR penalties. GDPR [(General Data Protection Regulation)](https://gdpr-info.eu/), which aims to protect the information of European Union citizens, took affect in May 2018.
 
 ### Setup
 
@@ -578,7 +576,7 @@ fig.suptitle('Distribution of Total Fine per Article\'s inclusion', x=ax.get_pos
 
 ax.grid(visible=True, axis="both")
 
-fig.patch.set_linewidth(1)
+fig.patch.set_linewidth(1.1)
 fig.patch.set_edgecolor("black")
 plt.show()
 ```

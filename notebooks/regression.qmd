@@ -1,0 +1,138 @@
+---
+title: Regression Analysis
+jupyter: python3
+---
+
+### Setup
+
+
+```{python}
+#| tags: []
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+import sys
+sys.path.append(r"../")
+
+# plot styles
+import params.plt_params
+
+# helper functions
+from scripts.wrangling_funs import read_and_clean_fines_data, pivot_fines_longer
+```
+
+```{python}
+# read in data, remove zero values for price and convert to long format
+fines = (
+    read_and_clean_fines_data(path="../data/scraped_fines.csv")
+    .pipe(pivot_fines_longer)
+)
+```
+
+```{python}
+# df showing article next to how often it was referenced.
+n_citations = (
+    fines
+    .value_counts('article_number')
+    .reset_index(name='count')
+    .sort_values('article_number')
+)
+```
+
+### Creating a dataset for Modelling
+
+```{python}
+#| tags: []
+
+MIN_CITATIONS = 30
+INTEREST_VARS = ['year', 'article_number']
+
+# pivot data
+gdpr_model_data = (
+    fines
+    .assign(
+        violated        = 1,
+        total_fine_euro = lambda x: np.log10(x.total_fine_euro),
+        year            = lambda x: x.date.dt.year
+    )
+    .merge(
+        n_citations.query(f'count >= {MIN_CITATIONS}'),
+        how='inner', left_on='article_number', right_on='article_number'
+        )
+    .pivot_table(values=['violated'], index=['id', 'total_fine_euro'] + INTEREST_VARS)
+    .unstack(level=-1, fill_value=0)
+)
+
+
+
+# sort out indexing / columns
+gdpr_model_data.columns = gdpr_model_data.columns.droplevel(0)
+gdpr_model_data.columns.name = None
+
+gdpr_model_data.columns = ['A' + str(col) for col in gdpr_model_data.columns]
+
+gdpr_model_data.reset_index(inplace=True)
+```
+
+```{python}
+#| tags: []
+gdpr_model_data
+```
+
+
+### Regressing Article on Total Fine Price
+
+With the data in an appropriate form, regression can be performed.
+
+```{python}
+#| tags: []
+X = gdpr_model_data.drop(columns=["id", "total_fine_euro"])
+y = gdpr_model_data.total_fine_euro
+
+mod = sm.OLS(y, X.assign(constant=1).astype('float'))
+res = mod.fit()
+
+coefs = pd.concat([res.params, res.conf_int()], axis=1)
+
+coefs.columns = ['estimate', 'ci0', 'ci1']
+```
+
+```{python}
+#| tags: []
+# make a nice coeficient table for plotting
+coefTable = (
+    coefs
+    .reset_index(names='coef')
+    .assign(
+        ci_length = lambda x: x.ci1 - x.estimate,
+        hits0     = lambda x: (0 > x.ci0) & (0 < x.ci1)
+    )
+    .loc[lambda x: x.coef != 'constant', ['coef', 'estimate', 'ci_length', 'hits0']]
+)
+
+colors = {'True': 'indianred', 'False': 'steelblue'}
+
+fig, ax = plt.subplots()
+
+ax.axhline(y=0, color="black", linestyle=(0, (1, 1)))
+ax.set(
+    ylabel=None,
+    xlabel="Coefficient Estimate",
+    title="Coefficient Estimates",
+    xticks=coefTable.index, xticklabels=coefTable.coef
+    )
+
+for hit_type in np.unique(coefTable.hits0):
+    color = colors[str(hit_type)]
+    df_subset = coefTable.query(f'hits0 == {hit_type}')
+    ax.errorbar(
+        df_subset.index, df_subset.estimate, yerr=df_subset.ci_length,
+        marker='o', color=color, ls='', ms=5, capsize=5, label=hit_type
+    )
+
+plt.show()
+```
+
