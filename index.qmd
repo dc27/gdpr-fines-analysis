@@ -6,7 +6,7 @@ format:
   html: 
     code-fold: true
     toc: true
-    number-sections: true
+7    number-sections: true
     number-depth: 3
     css: styles.css
     fig-align: "left"
@@ -330,7 +330,7 @@ fines_controller_gb = (
             x.controller
         )
     )
-    .assign(shortname = lambda x: x.shortname.str.title().str.strip().replace(""))
+    .assign(shortname = lambda x: x.shortname.str.title().str.strip())
     .groupby('shortname')
 )
 
@@ -364,6 +364,7 @@ ax.set(xlabel="\nTotal Amount Paid in Fines", ylabel=None)
 ax.xaxis.set_major_formatter(big_currency)
 
 # wrap long labels
+ax.set_yticks(ax.get_yticks()) # this just avoids a userWarning error 
 f = lambda x: textwrap.fill(x.get_text(), 20)
 ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
@@ -413,6 +414,7 @@ ax.set(
     )
 
 # wrap long labels
+ax.set_yticks(ax.get_yticks()) # this just avoids a userWarning error 
 f = lambda x: textwrap.fill(x.get_text(), 20)
 ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
@@ -434,6 +436,16 @@ plt.show()
 
 
 The plot shows that the most frequently-fined controller is "Private Individual". Since this more likely relates to many different individuals, it's also probably worth looking at the results without these non-specific identifiers. I.e. without terms like: "Private Individual", "Company", "Store Owner", "Police Officer", ...
+
+```{python}
+def wrap_labels(ax, width, break_long_words=False):
+    labels = []
+    for label in ax.get_yticklabels():
+        text = label.get_text()
+        labels.append(textwrap.fill(text, width=width,
+                      break_long_words=break_long_words))
+    ax.set_yticklabels(labels, rotation=0)
+```
 
 
 ```{python}
@@ -458,11 +470,14 @@ ax.set(
     xticks=range(0, controller_stats.counts.max(), 10)
     )
 
+
 # wrap long labels
+ax.set_yticks(ax.get_yticks()) # this just avoids a userWarning error 
 f = lambda x: textwrap.fill(x.get_text(), 20)
 ax.set_yticklabels(map(f, ax.get_yticklabels()))
 
 fig.canvas.draw()
+
 
 # title and subtitle
 ax.set_title(
@@ -550,7 +565,7 @@ We can see from the barplot that articles 5, 6, 13, and 32 are the most frequent
 
 #### Distribution of Fine Price per Article
 
-For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an violation instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at $y = \textrm{total_fine_euro}$.
+For the fines referenced over 30 times, how are the fines distributed. Here each point on the plot relates to a fine of that article. That is, if there is an instance where articles 5, and 13 were referenced, there will be a point for article 5 and article 13 at $y = \textrm{total\_fine\_euro}$.
 
 Similar to @fig-distribution-by-year, it's possible to compare the number of references per article since the points have been overlayed with a jitter effect.
 
@@ -698,7 +713,6 @@ for hit_type in np.unique(coefTable.hits0):
         df_subset.index, df_subset.estimate, yerr=df_subset.ci_length,
         marker='o', color=color, ls='', ms=5, capsize=5, label=hit_type
     )
-
 
 # title
 ax.set_title(f'Regression Coefficient Estimates\n', loc='left', fontsize=14)
