@@ -4,18 +4,26 @@ author: "David Currie"
 date: "11/27/2023"
 format:
   html: 
-    code-fold: true
     toc: true
     number-sections: true
     number-depth: 3
-    css: styles.css
     fig-align: "left"
+  gfm:
+    preview-mode: raw
+        
 
 jupyter: python3
 keep-ipynb: false
 execute: 
   enabled: true
 ---
+
+<!--small amount of styling -->
+<style>
+code {
+    color: midnightblue;
+}
+</style>
 
 ## Background
 
